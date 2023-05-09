@@ -110,3 +110,8 @@ ShortVideo.AutoPublisher 是套基于 WPF 实现的，抖音，百家号，小�
 ## 小红书
 
 <img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/XiaoHongShu.png" />
+
+
+## 微信扫码交流
+
+![](https://github.com/dorisoy/Wesley/blob/main/weixing.png?raw=true)
