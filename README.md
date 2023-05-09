@@ -36,20 +36,20 @@ ShortVideo.AutoPublisher 是套基于 WPF 实现的，抖音，百家号，小�
 
 ## 百家号
 
-<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Baijiahao.png" width="500px"/>
+<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Baijiahao.png" />
 
 ## 抖音
 
-<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Douyin.png" width="500px"/>
+<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Douyin.png" />
 
 ## 视频号
 
-<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Shipinhao.png" width="500px"/>
+<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Shipinhao.png" />
 
 ## 头条
 
-<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Toutiao.png" width="500px"/>
+<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Toutiao.png" />
 
 ## 小红书
 
-<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/XiaoHongShu.png" width="500px"/>
+<img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/XiaoHongShu.png" />
