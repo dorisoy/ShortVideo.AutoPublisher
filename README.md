@@ -30,6 +30,63 @@ ShortVideo.AutoPublisher 是套基于 WPF 实现的，抖音，百家号，小�
     new XiaoHongShu(this, v).ShowDialog();
 ```
 
+## 视频上传示例
+
+```
+    /// <summary>
+    /// 打开文件上传选对话框
+    /// </summary>
+    protected Action<BaseWindow, string, string> UploadFileDialog = async (win, videoId,ext) =>
+    {
+        await win?.Dispatcher.InvokeAsync(() =>
+        {
+            //自定义对话框处理器 mp4  Download
+            if (win.browser != null && !win.browser.IsDisposed)
+                win.browser.DialogHandler = new DialogHandler($"{Download.path}/{videoId}.{ext}");
+        });
+    };
+```
+
+## 上传封面示例
+
+```
+    await e.Browser.EvaluateScriptAsync(@"
+        var play = document.getElementsByClassName('uploader-inner')[0]
+        function findPos(obj)
+        {
+            var curleft = 0;
+            var curtop = 0;
+
+            if (obj.offsetParent)
+            {
+                do
+                {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+
+                return { X: curleft,Y: curtop};
+            }
+        }
+        findPos(play)"
+    )
+    .ContinueWith(async x =>
+    {
+        var responseForMouseClick = x.Result;
+        if (responseForMouseClick.Success && responseForMouseClick.Result != null)
+        {
+            var xy = responseForMouseClick.Result;
+            var json = JsonConvert.SerializeObject(xy).ToString();
+            var coordx = json.Substring(json.IndexOf(':') + 1, 3);
+            var coordy = json.Substring(json.LastIndexOf(':') + 1, 3);
+
+            MouseLeftDown(int.Parse(coordx) + 5, int.Parse(coordy) + 5);
+            MouseLeftUp(int.Parse(coordx) + 100, int.Parse(coordy) + 100);
+        }
+        await Task.Delay(3000);
+    });
+```
+
 ## 日志
 
 <img src="https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/Screen/Console.png" />
