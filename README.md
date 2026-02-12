@@ -2,6 +2,8 @@
 
 ShortVideo.AutoPublisher 是套基于 WPF 实现的，[抖音](https://creator.douyin.com)，[百家号](https://baijiahao.baidu.com/builder/rc/edit?type=videoV2)，[小红书](https://creator.xiaohongshu.com)，[视频号](https://channels.weixin.qq.com)，[头条](https://mp.toutiao.com/profile_v4/xigua/upload-video)，等平台短视频自动发布的创作者工具库，你可以根据本示例创建自己的短视频自动发布管理系统。
 
+下载地址：[http://shop.unitos.cn/item/8](http://shop.unitos.cn/item/8)
+
 ## 功能
 
 1. 基于 CefSharp 实现的浏览器模拟操作，优化了任务链，不阻塞，优雅的重启并释放资源，使用定时重启新应用。
