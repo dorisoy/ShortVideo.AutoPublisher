@@ -2,6 +2,8 @@
 
 > 基于 WPF 的多平台短视频一键发布解决方案
 
+### 完整源码: [https://shop.unitos.cn/item/8](https://shop.unitos.cn/item/8)
+
 ## 一、产品概述
 
 **ShortVideo.AutoPublisher** 是一款专为内容创作者设计的桌面应用程序，通过集成 OpenClaw AI 代理机器人技术，实现视频内容到多个主流短视频平台的自动化发布。
