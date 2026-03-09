@@ -616,7 +616,7 @@ await agent.ExecuteWithRetryAsync(async () => {
 | UI 升级 | 采用 WPF-UI 2.x 现代化界面 |
 | 封面管理 | 支持为视频设置封面图片 |
 
-### v3.0 AI - 智能版 (2024) ⭐ 当前版本
+### v3.0 AI - 智能版 (2026) ⭐ 当前版本
 
 **革命性升级**：集成 OpenClaw AI 代理技术，实现真正的自动化发布。
 
