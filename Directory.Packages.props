@@ -1,0 +1,46 @@
+<Project>
+  <ItemGroup>
+    <!-- MVVM Framework -->
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    
+    <!-- Database -->
+    <PackageVersion Include="Dapper" Version="2.1.35" />
+    <PackageVersion Include="System.Data.SQLite" Version="1.0.118" />
+    
+    <!-- Microsoft Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.2151.40" />
+    
+    <!-- Browser Automation -->
+    <PackageVersion Include="Microsoft.Playwright" Version="1.40.0" />
+    
+    <!-- Image Processing -->
+    <PackageVersion Include="SixLabors.ImageSharp" Version="3.1.6" />
+    
+    <!-- Logging -->
+    <PackageVersion Include="Serilog" Version="3.1.1" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageVersion Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    
+    <!-- Resilience -->
+    <PackageVersion Include="Polly" Version="8.2.0" />
+    
+    <!-- WPF UI -->
+    <PackageVersion Include="WPF-UI" Version="3.0.4" />
+    <PackageVersion Include="WPF-UI.Tray" Version="3.0.4" />
+    
+    <!-- Analyzers -->
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
+    <PackageVersion Include="WpfAnalyzers" Version="4.1.1" />
+    
+    <!-- SourceLink -->
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+    
+    <!-- Testing -->
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="NSubstitute" Version="5.1.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4" />
+    <PackageVersion Include="xunit" Version="2.6.2" />
+  </ItemGroup>
+</Project>
