@@ -29,35 +29,35 @@
 
 <img src="Screen/1%20(1).jpg"/>
 
-<img src="Screen/1%20(2).jpg"/>
+<img src="Screen/1%20(2).png"/>
 
-<img src="Screen/1%20(3).jpg"/>
+<img src="Screen/1%20(3).png"/>
 
-<img src="Screen/1%20(4).jpg"/>
+<img src="Screen/1%20(4).png"/>
 
-<img src="Screen/1%20(5).jpg"/>
+<img src="Screen/1%20(5).png"/>
 
-<img src="Screen/1%20(6).jpg"/>
+<img src="Screen/1%20(6).png"/>
 
-<img src="Screen/1%20(7).jpg"/>
+<img src="Screen/1%20(7).png"/>
 
-<img src="Screen/1%20(8).jpg"/>
+<img src="Screen/1%20(8).png"/>
 
-<img src="Screen/1%20(9).jpg"/>
+<img src="Screen/1%20(9).png"/>
 
-<img src="Screen/1%20(10).jpg"/>
+<img src="Screen/1%20(10).png"/>
 
-<img src="Screen/1%20(11).jpg"/>
+<img src="Screen/1%20(11).png"/>
 
-<img src="Screen/1%20(12).jpg"/>
+<img src="Screen/1%20(12).png"/>
 
-<img src="Screen/1%20(13).jpg"/>
+<img src="Screen/1%20(13).png"/>
 
-<img src="Screen/1%20(14).jpg"/>
+<img src="Screen/1%20(14).png"/>
 
-<img src="Screen/1%20(15).jpg"/>
+<img src="Screen/1%20(15).png"/>
 
-<img src="Screen/1%20(16).jpg"/>
+<img src="Screen/1%20(16).png"/>
 
 ## 二、系统架构
 
