@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "autopublisher": {
+      "command": "dotnet",
+      "args": ["run", "--project", "D:/Git/ShortVideo.AutoPublisher/src/ShortVideo.AutoPublisher.Mcp/ShortVideo.AutoPublisher.Mcp.csproj"]
+    }
+  }
+}
