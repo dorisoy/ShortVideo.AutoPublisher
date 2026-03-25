@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- <ApplicationIcon>Assets\app.ico</ApplicationIcon> -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>ShortVideo.AutoPublisher</RootNamespace>
+    <AssemblyName>ShortVideo.AutoPublisher</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- MVVM Framework -->
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    
+    <!-- Database -->
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="System.Data.SQLite" />
+    
+    <!-- Microsoft Extensions -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    
+    <!-- Browser Automation -->
+    <PackageReference Include="Microsoft.Playwright" />
+    
+    <!-- Image Processing -->
+    <PackageReference Include="SixLabors.ImageSharp" />
+    
+    <!-- Logging -->
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    
+    <!-- Resilience -->
+    <PackageReference Include="Polly" />
+    
+    <!-- WPF UI -->
+    <PackageReference Include="WPF-UI" />
+    <PackageReference Include="WPF-UI.Tray" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

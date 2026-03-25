@@ -1,0 +1,26 @@
+<Application
+    x:Class="ShortVideo.AutoPublisher.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:ShortVideo.AutoPublisher.Converters"
+    DispatcherUnhandledException="OnDispatcherUnhandledException"
+    Exit="OnExit"
+    Startup="OnStartup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Converters -->
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToStatusConverter x:Key="BoolToStatusConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
+            <converters:TaskStatusToColorConverter x:Key="TaskStatusToColorConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

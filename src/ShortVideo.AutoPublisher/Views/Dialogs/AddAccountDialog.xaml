@@ -1,0 +1,84 @@
+<ui:FluentWindow
+    x:Class="ShortVideo.AutoPublisher.Views.Dialogs.AddAccountDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="添加账号"
+    Width="450"
+    Height="400"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <TextBlock 
+            Grid.Row="0"
+            Text="添加账号"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Margin="0,0,0,24"/>
+
+        <!-- 表单 -->
+        <StackPanel Grid.Row="1">
+            <!-- 平台选择 -->
+            <TextBlock Text="平台" Margin="0,0,0,8"/>
+            <ComboBox 
+                x:Name="PlatformComboBox"
+                Width="200"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,16">
+                <ComboBoxItem Content="抖音" Tag="Douyin" IsSelected="True"/>
+                <ComboBoxItem Content="小红书" Tag="Xiaohongshu"/>
+                <ComboBoxItem Content="百家号" Tag="Baijiahao"/>
+                <ComboBoxItem Content="微信视频号" Tag="WeixinChannel"/>
+                <ComboBoxItem Content="今日头条" Tag="Toutiao"/>
+            </ComboBox>
+
+            <!-- 账号名称 -->
+            <TextBlock Text="账号名称" Margin="0,0,0,8"/>
+            <ui:TextBox 
+                x:Name="AccountNameTextBox"
+                PlaceholderText="请输入账号名称（用于标识）"
+                Margin="0,0,0,16"/>
+
+            <!-- 账号ID -->
+            <TextBlock Text="账号ID（可选）" Margin="0,0,0,8"/>
+            <ui:TextBox 
+                x:Name="AccountIdTextBox"
+                PlaceholderText="请输入平台账号ID"
+                Margin="0,0,0,16"/>
+
+            <!-- 提示信息 -->
+            <ui:Card Padding="12" Margin="0,0,0,16">
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon Symbol="Info24" Margin="0,0,8,0" Foreground="{DynamicResource SystemAccentColorSecondaryBrush}"/>
+                    <TextBlock 
+                        Text="添加账号后，需要通过浏览器登录获取Cookie"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </ui:Card>
+        </StackPanel>
+
+        <!-- 按钮 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+            <ui:Button 
+                Content="取消"
+                Margin="0,0,8,0"
+                Click="Cancel_Click"/>
+            <ui:Button 
+                Content="添加并登录"
+                Appearance="Primary"
+                Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

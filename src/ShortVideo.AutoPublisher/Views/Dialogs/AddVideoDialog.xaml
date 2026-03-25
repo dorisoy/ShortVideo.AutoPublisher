@@ -1,0 +1,121 @@
+<ui:FluentWindow
+    x:Class="ShortVideo.AutoPublisher.Views.Dialogs.AddVideoDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="添加视频"
+    Width="500"
+    Height="550"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <TextBlock 
+            Grid.Row="0"
+            Text="添加视频"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Margin="0,0,0,24"/>
+
+        <!-- 表单 -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- 视频标题 -->
+                <TextBlock Text="视频标题" Margin="0,0,0,8"/>
+                <ui:TextBox 
+                    x:Name="TitleTextBox"
+                    PlaceholderText="请输入视频标题"
+                    Margin="0,0,0,16"/>
+
+                <!-- 视频描述 -->
+                <TextBlock Text="视频描述" Margin="0,0,0,8"/>
+                <ui:TextBox 
+                    x:Name="DescriptionTextBox"
+                    PlaceholderText="请输入视频描述"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"
+                    Height="80"
+                    Margin="0,0,0,16"/>
+
+                <!-- 视频文件 -->
+                <TextBlock Text="视频文件" Margin="0,0,0,8"/>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBox 
+                        x:Name="VideoPathTextBox"
+                        Grid.Column="0"
+                        PlaceholderText="选择视频文件"
+                        IsReadOnly="True"
+                        Margin="0,0,8,0"/>
+                    <ui:Button 
+                        Grid.Column="1"
+                        Content="浏览"
+                        Icon="{ui:SymbolIcon Folder24}"
+                        Click="BrowseVideo_Click"/>
+                </Grid>
+
+                <!-- 封面图片 -->
+                <TextBlock Text="封面图片（可选）" Margin="0,0,0,8"/>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBox 
+                        x:Name="CoverPathTextBox"
+                        Grid.Column="0"
+                        PlaceholderText="选择封面图片"
+                        IsReadOnly="True"
+                        Margin="0,0,8,0"/>
+                    <ui:Button 
+                        Grid.Column="1"
+                        Content="浏览"
+                        Icon="{ui:SymbolIcon Image24}"
+                        Click="BrowseCover_Click"/>
+                </Grid>
+
+                <!-- 标签 -->
+                <TextBlock Text="标签" Margin="0,0,0,8"/>
+                <ui:TextBox 
+                    x:Name="TagsTextBox"
+                    PlaceholderText="多个标签用逗号分隔"
+                    Margin="0,0,0,16"/>
+
+                <!-- 发布平台 -->
+                <TextBlock Text="发布平台" Margin="0,0,0,8"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                    <CheckBox x:Name="DouyinCheckBox" Content="抖音" Margin="0,0,16,0"/>
+                    <CheckBox x:Name="XiaohongshuCheckBox" Content="小红书" Margin="0,0,16,0"/>
+                    <CheckBox x:Name="BaijiahaoCheckBox" Content="百家号" Margin="0,0,16,0"/>
+                    <CheckBox x:Name="WeixinCheckBox" Content="视频号" Margin="0,0,16,0"/>
+                    <CheckBox x:Name="ToutiaoCheckBox" Content="头条"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- 按钮 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+            <ui:Button 
+                Content="取消"
+                Margin="0,0,8,0"
+                Click="Cancel_Click"/>
+            <ui:Button 
+                Content="添加"
+                Appearance="Primary"
+                Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

@@ -1,0 +1,80 @@
+<ui:FluentWindow
+    x:Class="ShortVideo.AutoPublisher.Views.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:ShortVideo.AutoPublisher.Views.Pages"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="ShortVideo AutoPublisher - 短视频自动发布工具"
+    Width="1280"
+    Height="800"
+    MinWidth="1024"
+    MinHeight="600"
+    d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+    d:DesignHeight="800"
+    d:DesignWidth="1280"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d"
+    xmlns:local="clr-namespace:ShortVideo.AutoPublisher.Views.Windows">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar
+            Title="ShortVideo AutoPublisher - 短视频自动发布工具"
+            Grid.Row="0"
+            Icon="pack://application:,,,/Assets/app.png" />
+
+        <ui:NavigationView
+            x:Name="RootNavigation"
+            Grid.Row="1"
+            IsBackButtonVisible="Visible"
+            IsPaneToggleVisible="True"
+            OpenPaneLength="250"
+            PaneDisplayMode="Left">
+
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                    Content="仪表盘"
+                    Icon="{ui:SymbolIcon Home24}"
+                    TargetPageType="{x:Type pages:DashboardPage}" />
+                <ui:NavigationViewItem
+                    Content="视频库"
+                    Icon="{ui:SymbolIcon Video24}"
+                    TargetPageType="{x:Type pages:VideoManagePage}" />
+                <ui:NavigationViewItem
+                    Content="发布任务"
+                    Icon="{ui:SymbolIcon Send24}"
+                    TargetPageType="{x:Type pages:PublishTaskPage}" />
+                <ui:NavigationViewItem
+                    Content="账号管理"
+                    Icon="{ui:SymbolIcon Person24}"
+                    TargetPageType="{x:Type pages:CookieSessionPage}" />
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem
+                    Content="设置"
+                    Icon="{ui:SymbolIcon Settings24}"
+                    TargetPageType="{x:Type pages:SettingsPage}" />
+            </ui:NavigationView.FooterMenuItems>
+
+            <ui:NavigationView.ContentOverlay>
+                <Grid>
+                    <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
+                </Grid>
+            </ui:NavigationView.ContentOverlay>
+
+        </ui:NavigationView>
+
+        <ContentPresenter x:Name="RootContentDialog" Grid.Row="1" />
+    </Grid>
+</ui:FluentWindow>

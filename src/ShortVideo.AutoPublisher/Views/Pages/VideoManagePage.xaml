@@ -1,0 +1,97 @@
+<Page
+    x:Class="ShortVideo.AutoPublisher.Views.Pages.VideoManagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="视频库"
+    d:DesignHeight="600"
+    d:DesignWidth="900"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 页面标题 -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock FontSize="32" FontWeight="SemiBold" Text="视频库" />
+            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="管理您的视频内容，支持搜索、编辑和一键发布到多平台" />
+        </StackPanel>
+
+        <!-- 工具栏 -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <StackPanel Orientation="Horizontal">
+                <ui:TextBox
+                    Width="300"
+                    PlaceholderText="搜索视频标题或标签..."
+                    Text="{Binding ViewModel.SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
+                <ui:Button
+                    Margin="8,0,0,0"
+                    Command="{Binding ViewModel.SearchCommand}"
+                    Content="搜索"
+                    Icon="{ui:SymbolIcon Search24}" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <ui:Button
+                    Command="{Binding ViewModel.LoadDataCommand}"
+                    Content="刷新"
+                    Icon="{ui:SymbolIcon ArrowSync24}" />
+                <ui:Button
+                    Margin="8,0,0,0"
+                    Appearance="Primary"
+                    Content="添加视频"
+                    Icon="{ui:SymbolIcon Add24}"
+                    Click="ShowAddVideoDialog_Click" />
+            </StackPanel>
+        </Grid>
+
+        <!-- 视频列表 -->
+        <ui:DataGrid
+            Grid.Row="2"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding ViewModel.Videos}"
+            SelectedItem="{Binding ViewModel.SelectedVideo}">
+            <ui:DataGrid.Columns>
+                <DataGridTextColumn Width="*" Binding="{Binding Title}" Header="视频标题" />
+                <DataGridTextColumn Width="150" Binding="{Binding Tags}" Header="标签" />
+                <DataGridTextColumn Width="100" Binding="{Binding FormattedFileSize}" Header="文件大小" />
+                <DataGridTextColumn Width="150" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" Header="创建时间" />
+                <DataGridTemplateColumn Width="280" Header="操作">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button
+                                    Appearance="Info"
+                                    Command="{Binding DataContext.ViewModel.PreviewVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                    CommandParameter="{Binding}"
+                                    Content="预览"
+                                    Icon="{ui:SymbolIcon Play24}" />
+                                <ui:Button
+                                    Margin="4,0,0,0"
+                                    Appearance="Primary"
+                                    Content="发布"
+                                    Icon="{ui:SymbolIcon Send24}" />
+                                <ui:Button
+                                    Margin="4,0,0,0"
+                                    Content="编辑"
+                                    Icon="{ui:SymbolIcon Edit24}" />
+                                <ui:Button
+                                    Margin="4,0,0,0"
+                                    Appearance="Danger"
+                                    Command="{Binding DataContext.ViewModel.DeleteVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                    CommandParameter="{Binding}"
+                                    Content="删除"
+                                    Icon="{ui:SymbolIcon Delete24}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </ui:DataGrid.Columns>
+        </ui:DataGrid>
+    </Grid>
+</Page>
