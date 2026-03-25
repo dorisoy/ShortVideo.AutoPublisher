@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Version>3.0.4</Version>
+    <Version>3.0.1</Version>
     <LangVersion>12.0</LangVersion>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -13,19 +13,19 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageVersion>$(Version)</PackageVersion>
-    <Authors>lepo.co</Authors>
-    <Company>lepo.co</Company>
-    <Copyright>Copyright (C) 2021-2024 Leszek Pomianowski and WPF UI Contributors</Copyright>
+    <Authors>dorisoy</Authors>
+    <Company>dorisoy</Company>
+    <Copyright>Copyright (C) 2024 dorisoy</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageLicense>https://raw.githubusercontent.com/lepoco/wpfui/main/LICENSE</PackageLicense>
-    <PackageProjectUrl>https://github.com/lepoco/wpfui</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/lepoco/wpfui/releases</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/lepoco/wpfui</RepositoryUrl>
+    <PackageLicense>https://raw.githubusercontent.com/dorisoy/ShortVideo.AutoPublisher/main/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://github.com/dorisoy/ShortVideo.AutoPublisher</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/dorisoy/ShortVideo.AutoPublisher/releases</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/dorisoy/ShortVideo.AutoPublisher</RepositoryUrl>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryType>git</RepositoryType>
-    <Description>WPF UI provides the Fluent experience in your known and loved WPF framework. Intuitive design, themes, navigation and new immersive controls. All natively and effortlessly.</Description>
-    <PackageTags>wpf ui wpfui fluent design winui windows controls custom metro modern xaml toolkit color dark theme lepo net6 net5 net</PackageTags>
+    <Description>ShortVideo AutoPublisher is a WPF application for automatically publishing short videos to multiple platforms. Built with modern WPF UI and .NET 8.</Description>
+    <PackageTags>wpf video publisher short-video tiktok youtube automation publishing</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
