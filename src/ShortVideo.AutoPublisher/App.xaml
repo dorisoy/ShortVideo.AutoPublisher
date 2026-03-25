@@ -21,6 +21,77 @@
             <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
             <converters:TaskStatusToColorConverter x:Key="TaskStatusToColorConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            
+            <!-- DataGrid 美化样式 -->
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="#1E1E2E"/>
+                <Setter Property="Foreground" Value="#CDD6F4"/>
+                <Setter Property="BorderBrush" Value="#45475A"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="RowBackground" Value="#1E1E2E"/>
+                <Setter Property="AlternatingRowBackground" Value="#252535"/>
+                <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#313244"/>
+                <Setter Property="VerticalGridLinesBrush" Value="#313244"/>
+                <Setter Property="RowHeight" Value="48"/>
+                <Setter Property="CanUserAddRows" Value="False"/>
+                <Setter Property="CanUserDeleteRows" Value="False"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+            </Style>
+            
+            <!-- DataGrid 列标题样式 -->
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#313244"/>
+                <Setter Property="Foreground" Value="#CDD6F4"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="BorderBrush" Value="#45475A"/>
+                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            </Style>
+            
+            <!-- DataGrid 单元格样式 -->
+            <Style TargetType="DataGridCell">
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Border Padding="{TemplateBinding Padding}" 
+                                    Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#45475A"/>
+                        <Setter Property="Foreground" Value="#CDD6F4"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#383850"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <!-- DataGrid 行样式 -->
+            <Style TargetType="DataGridRow">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#45475A"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#313244"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

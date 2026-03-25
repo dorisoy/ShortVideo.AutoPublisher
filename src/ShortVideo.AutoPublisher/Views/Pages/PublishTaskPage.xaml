@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Margin="0,0,0,24" Orientation="Horizontal">
             <ui:CardControl Width="160" Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Clock" FontSize="28" Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
+                    <ui:SymbolIcon Symbol="Clock24" FontSize="28" Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Text="{Binding PendingCount}" />
@@ -32,7 +32,7 @@
             </ui:CardControl>
             <ui:CardControl Width="160" Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Play" FontSize="28" Foreground="DeepSkyBlue"/>
+                    <ui:SymbolIcon Symbol="Play24" FontSize="28" Foreground="DeepSkyBlue"/>
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="DeepSkyBlue" Text="{Binding RunningCount}" />
@@ -41,7 +41,7 @@
             </ui:CardControl>
             <ui:CardControl Width="160" Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Checkmark" FontSize="28" Foreground="LimeGreen"/>
+                    <ui:SymbolIcon Symbol="Checkmark24" FontSize="28" Foreground="LimeGreen"/>
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding CompletedCount}" />
@@ -50,7 +50,7 @@
             </ui:CardControl>
             <ui:CardControl Width="160" Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Dismiss" FontSize="28" Foreground="Red"/>
+                    <ui:SymbolIcon Symbol="Dismiss24" FontSize="28" Foreground="Red"/>
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="Red" Text="{Binding FailedCount}" />
@@ -59,7 +59,7 @@
             </ui:CardControl>
             <ui:Button 
                 Appearance="Primary" 
-                Icon="{ui:SymbolIcon ArrowSync}" 
+                Icon="{ui:SymbolIcon ArrowSync24}"
                 Command="{Binding LoadDataCommand}" 
                 Content="刷新" 
                 VerticalAlignment="Center"/>
@@ -67,25 +67,25 @@
 
         <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Tasks}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="60" Binding="{Binding Id}" Header="ID" />
-                <DataGridTextColumn Width="*" Binding="{Binding VideoTitle}" Header="视频标题" />
-                <DataGridTextColumn Width="100" Binding="{Binding PlatformDisplayName}" Header="平台" />
-                <DataGridTextColumn Width="80" Binding="{Binding StatusDisplayName}" Header="状态" />
-                <DataGridTextColumn Width="60" Binding="{Binding Progress, StringFormat={}{0}%}" Header="进度" />
-                <DataGridTextColumn Width="150" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" Header="创建时间" />
+                <DataGridTextColumn Width="60" Binding="{Binding Id, Mode=OneWay}" Header="ID" />
+                <DataGridTextColumn Width="*" Binding="{Binding VideoTitle, Mode=OneWay}" Header="视频标题" />
+                <DataGridTextColumn Width="100" Binding="{Binding PlatformDisplayName, Mode=OneWay}" Header="平台" />
+                <DataGridTextColumn Width="80" Binding="{Binding StatusDisplayName, Mode=OneWay}" Header="状态" />
+                <DataGridTextColumn Width="60" Binding="{Binding Progress, Mode=OneWay, StringFormat={}{0}%}" Header="进度" />
+                <DataGridTextColumn Width="150" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}" Header="创建时间" />
                 <DataGridTemplateColumn Width="200" Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <ui:Button 
                                     Appearance="Info" 
-                                    Icon="{ui:SymbolIcon Info}" 
+                                    Icon="{ui:SymbolIcon Info24}"
                                     Command="{Binding DataContext.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
                                     CommandParameter="{Binding}" 
                                     Content="详情" />
                                 <ui:Button 
                                     Margin="4,0,0,0" 
-                                    Icon="{ui:SymbolIcon ArrowSync}" 
+                                    Icon="{ui:SymbolIcon ArrowSync24}"
                                     Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
                                     CommandParameter="{Binding}" 
                                     Content="重试" 
@@ -93,7 +93,7 @@
                                 <ui:Button 
                                     Margin="4,0,0,0" 
                                     Appearance="Danger" 
-                                    Icon="{ui:SymbolIcon Dismiss}" 
+                                    Icon="{ui:SymbolIcon Dismiss24}"
                                     Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
                                     CommandParameter="{Binding}" 
                                     Content="取消" 

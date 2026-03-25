@@ -32,24 +32,24 @@
                 <StackPanel Orientation="Horizontal">
                     <ui:TextBox
                         Width="300"
-                        Icon="{ui:SymbolIcon Search}"
+                        Icon="{ui:SymbolIcon Search24}"
                         PlaceholderText="搜索视频标题或标签..."
                         Text="{Binding ViewModel.SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
                     <ui:Button
                         Margin="8,0,0,0"
-                        Icon="{ui:SymbolIcon Search}"
+                        Icon="{ui:SymbolIcon Search24}"
                         Command="{Binding ViewModel.SearchCommand}"
                         Content="搜索" />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <ui:Button
                         Margin="0,0,8,0"
-                        Icon="{ui:SymbolIcon ArrowSync}"
+                        Icon="{ui:SymbolIcon ArrowSync24}"
                         Command="{Binding ViewModel.LoadDataCommand}"
                         Content="刷新" />
                     <ui:Button
                         Appearance="Primary"
-                        Icon="{ui:SymbolIcon Add}"
+                        Icon="{ui:SymbolIcon Add24}"
                         Content="添加视频"
                         Click="ShowAddVideoDialog_Click" />
                 </StackPanel>
@@ -75,23 +75,23 @@
                             <StackPanel Orientation="Horizontal">
                                 <ui:Button
                                     Appearance="Info"
-                                    Icon="{ui:SymbolIcon Play}"
+                                    Icon="{ui:SymbolIcon Play24}"
                                     Command="{Binding DataContext.ViewModel.PreviewVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
                                     Content="预览" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Primary"
-                                    Icon="{ui:SymbolIcon Send}"
+                                    Icon="{ui:SymbolIcon Send24}"
                                     Content="发布" />
                                 <ui:Button
                                     Margin="4,0,0,0"
-                                    Icon="{ui:SymbolIcon Edit}"
+                                    Icon="{ui:SymbolIcon Edit24}"
                                     Content="编辑" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Danger"
-                                    Icon="{ui:SymbolIcon Delete}"
+                                    Icon="{ui:SymbolIcon Delete24}"
                                     Command="{Binding DataContext.ViewModel.DeleteVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
                                     Content="删除" />

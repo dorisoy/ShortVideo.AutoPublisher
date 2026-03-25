@@ -1,15 +1,14 @@
-<Page
-    x:Class="ShortVideo.AutoPublisher.Views.Pages.DashboardPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="仪表盘"
-    d:DesignHeight="600"
-    d:DesignWidth="900"
-    mc:Ignorable="d"
-    Loaded="Page_Loaded">
+<Page x:Class="ShortVideo.AutoPublisher.Views.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Title="仪表盘"
+      d:DesignHeight="600"
+      d:DesignWidth="900"
+      mc:Ignorable="d"
+      Loaded="Page_Loaded">
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,121 +20,157 @@
         </Grid.RowDefinitions>
 
         <!-- 页面标题 -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,24">
-            <TextBlock
-                FontSize="32"
-                FontWeight="SemiBold"
-                Text="仪表盘"  Foreground="White"/>
-            <TextBlock
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="系统概览和快捷操作" />
+        <StackPanel Grid.Row="0"
+                    Margin="0,0,0,24">
+            <TextBlock FontSize="32"
+                       FontWeight="SemiBold"
+                       Text="仪表盘"
+                       Foreground="White" />
+            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       Text="系统概览和快捷操作" />
         </StackPanel>
 
         <!-- 统计卡片 -->
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,0,0,24"
-            Orientation="Horizontal">
-            <ui:CardControl Width="200" Margin="0,0,12,0">
+        <Grid Grid.Row="1"
+              Margin="0,0,0,24"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:CardControl Grid.Column="0"
+                            Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Video" FontSize="32" Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
+                    <ui:SymbolIcon Symbol="Video24"
+                                   FontSize="32"
+                                   Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" />
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="36" FontWeight="Bold" Text="{Binding ViewModel.TotalVideos}" />
+                    <TextBlock FontSize="36"
+                               FontWeight="Bold"
+                               Text="{Binding ViewModel.TotalVideos}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
-                <TextBlock Text="视频总数" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="视频总数"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="200" Margin="0,0,12,0">
+            <ui:CardControl Grid.Column="1"
+                            Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Send" FontSize="32" Foreground="LimeGreen"/>
+                    <ui:SymbolIcon Symbol="Send24"
+                                   FontSize="32"
+                                   Foreground="LimeGreen" />
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="36" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding ViewModel.TodayPublished}" />
+                    <TextBlock FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="LimeGreen"
+                               Text="{Binding ViewModel.TodayPublished}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
-                <TextBlock Text="今日发布" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="今日发布"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="200" Margin="0,0,12,0">
+            <ui:CardControl Grid.Column="2"
+                            Margin="0,0,12,0">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Clock" FontSize="32" Foreground="Orange"/>
+                    <ui:SymbolIcon Symbol="Clock24"
+                                   FontSize="32"
+                                   Foreground="Orange" />
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="36" FontWeight="Bold" Foreground="Orange" Text="{Binding ViewModel.PendingTasks}" />
+                    <TextBlock FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="Orange"
+                               Text="{Binding ViewModel.PendingTasks}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
-                <TextBlock Text="待处理" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="待处理"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="200">
+            <ui:CardControl Grid.Column="3">
                 <ui:CardControl.Icon>
-                    <ui:SymbolIcon Symbol="Warning" FontSize="32" Foreground="Red"/>
+                    <ui:SymbolIcon Symbol="Warning24"
+                                   FontSize="32"
+                                   Foreground="Red" />
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="36" FontWeight="Bold" Foreground="Red" Text="{Binding ViewModel.FailedTasks}" />
+                    <TextBlock FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="Red"
+                               Text="{Binding ViewModel.FailedTasks}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
-                <TextBlock Text="失败任务" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="失败任务"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-        </StackPanel>
+        </Grid>
 
         <!-- 快捷操作和平台状态 -->
-        <Grid Grid.Row="2" Margin="0,0,0,24">
+        <Grid Grid.Row="2"
+              Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <TextBlock
-                    Margin="0,0,0,12"
-                    FontWeight="SemiBold"
+                <TextBlock Margin="0,0,0,12"
+                           FontWeight="SemiBold"
                            Text="快捷操作"
                            Foreground="White" />
                 <StackPanel Orientation="Horizontal">
-                    <ui:Button
-                        Margin="0,0,8,0"
-                        Icon="{ui:SymbolIcon Add}"
-                        Command="{Binding ViewModel.NavigateToAddVideoCommand}"
-                        Content="添加视频" />
-                    <ui:Button
-                        Margin="0,0,8,0"
-                        Icon="{ui:SymbolIcon Send}"
-                        Command="{Binding ViewModel.NavigateToCreateTaskCommand}"
-                        Content="创建任务" />
-                    <ui:Button
-                        Margin="0,0,8,0"
-                        Icon="{ui:SymbolIcon Person}"
-                        Command="{Binding ViewModel.NavigateToManageAccountCommand}"
-                        Content="管理账号" />
-                    <ui:Button
-                        Appearance="Primary"
-                        Icon="{ui:SymbolIcon Flash}"
-                        Command="{Binding ViewModel.OneClickPublishCommand}"
-                        Content="一键发布" />
+                    <ui:Button Margin="0,0,8,0"
+                               Icon="{ui:SymbolIcon Add24}"
+                               Command="{Binding ViewModel.NavigateToAddVideoCommand}"
+                               Content="添加视频" />
+                    <ui:Button Margin="0,0,8,0"
+                               Icon="{ui:SymbolIcon Send24}"
+                               Command="{Binding ViewModel.NavigateToCreateTaskCommand}"
+                               Content="创建任务" />
+                    <ui:Button Margin="0,0,8,0"
+                               Icon="{ui:SymbolIcon Person24}"
+                               Command="{Binding ViewModel.NavigateToManageAccountCommand}"
+                               Content="管理账号" />
+                    <ui:Button Appearance="Primary"
+                               Icon="{ui:SymbolIcon Flash24}"
+                               Command="{Binding ViewModel.OneClickPublishCommand}"
+                               Content="一键发布" />
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,12,0"
-                        FontWeight="SemiBold"
+                    <TextBlock Margin="0,0,12,0"
+                               FontWeight="SemiBold"
                                Text="平台连接状态"
                                Foreground="White" />
-                    <TextBlock Foreground="LimeGreen" Text="{Binding ViewModel.ConnectedAccounts, StringFormat={}{0} 已连接}" />
-                    <TextBlock Margin="8,0" Text="/" />
-                    <TextBlock Foreground="Orange" Text="{Binding ViewModel.ExpiredAccounts, StringFormat={}{0} 已过期}" />
+                    <TextBlock Foreground="LimeGreen"
+                               Text="{Binding ViewModel.ConnectedAccounts, StringFormat={}{0} 已连接}" />
+                    <TextBlock Margin="8,0"
+                               Text="/" />
+                    <TextBlock Foreground="Orange"
+                               Text="{Binding ViewModel.ExpiredAccounts, StringFormat={}{0} 已过期}" />
                 </StackPanel>
-                <ItemsControl Margin="0,8,0,0" ItemsSource="{Binding ViewModel.PlatformStatus}">
+                <ItemsControl Margin="0,8,0,0"
+                              ItemsSource="{Binding ViewModel.PlatformStatus}" 
+                              Background="#333333" Padding="10">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
+                            <StackPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="8,0" Orientation="Horizontal">
-                                <Ellipse
-                                    Width="8"
-                                    Height="8"
-                                    Margin="0,0,4,0"
-                                    Fill="{Binding IsConnected, Converter={StaticResource BoolToColorConverter}}" />
+                            <StackPanel Margin="8,0"
+                                        Orientation="Horizontal">
+                                <Ellipse Width="10"
+                                         Height="10"
+                                         Margin="0,0,6,0"
+                                         Fill="{Binding IsConnected, Converter={StaticResource BoolToColorConverter}}" />
                                 <TextBlock Text="{Binding Name}"
                                            Foreground="White" />
                             </StackPanel>
@@ -146,55 +181,50 @@
         </Grid>
 
         <!-- 最近任务 -->
-        <StackPanel Grid.Row="3" Margin="0,0,0,8">
+        <StackPanel Grid.Row="3"
+                    Margin="0,0,0,8">
             <Grid>
                 <TextBlock FontWeight="SemiBold"
                            Text="最近任务"
                            Foreground="White" />
-                <ui:Button
-                    HorizontalAlignment="Right"
-                    Appearance="Transparent"
-                    Content="查看全部" />
+                <ui:Button HorizontalAlignment="Right"
+                           Appearance="Transparent"
+                           Content="查看全部" />
             </Grid>
         </StackPanel>
 
-        <DataGrid
-            Grid.Row="4"
-            AutoGenerateColumns="False"
-            ItemsSource="{Binding ViewModel.RecentTasks}">
+        <DataGrid Grid.Row="4"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding ViewModel.RecentTasks}">
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Width="*"
-                    Binding="{Binding VideoTitle}"
-                    Header="视频标题" />
-                <DataGridTextColumn
-                    Width="120"
-                    Binding="{Binding PlatformDisplayName}"
-                    Header="目标平台" />
-                <DataGridTextColumn
-                    Width="100"
-                    Binding="{Binding StatusDisplayName}"
-                    Header="状态" />
-                <DataGridTextColumn
-                    Width="150"
-                    Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}"
-                    Header="创建时间" />
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding VideoTitle, Mode=OneWay}"
+                                    Header="视频标题" />
+                <DataGridTextColumn Width="120"
+                                    Binding="{Binding PlatformDisplayName, Mode=OneWay}"
+                                    Header="目标平台" />
+                <DataGridTextColumn Width="100"
+                                    Binding="{Binding StatusDisplayName, Mode=OneWay}"
+                                    Header="状态" />
+                <DataGridTextColumn Width="150"
+                                    Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}"
+                                    Header="创建时间" />
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- 状态栏 -->
-        <Grid Grid.Row="5" Margin="0,16,0,0">
-            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <TextBlock
-                    Margin="4,0,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding ViewModel.LastUpdateTime}" />
+        <Grid Grid.Row="5"
+              Margin="0,16,0,0">
+            <StackPanel HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <TextBlock Margin="4,0,0,0"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           Text="{Binding ViewModel.LastUpdateTime}" />
             </StackPanel>
-            <ui:Button
-                HorizontalAlignment="Right"
-                Command="{Binding ViewModel.LoadDataCommand}"
-                Icon="{ui:SymbolIcon ArrowSync}"
-                Content="刷新" />
+            <ui:Button HorizontalAlignment="Right"
+                       Command="{Binding ViewModel.LoadDataCommand}"
+                       Icon="{ui:SymbolIcon ArrowSync24}"
+                       Content="刷新" />
         </Grid>
     </Grid>
 </Page>

@@ -41,12 +41,12 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <ui:Button 
                     Content="刷新状态"
-                    Icon="{ui:SymbolIcon ArrowSync}"
+                    Icon="{ui:SymbolIcon ArrowSync24}"
                     Margin="0,0,8,0"
                     Command="{Binding RefreshAllStatusCommand}"/>
                 <ui:Button 
                     Content="添加账号"
-                    Icon="{ui:SymbolIcon PersonAdd}"
+                    Icon="{ui:SymbolIcon PersonAdd24}"
                     Appearance="Primary"
                     Command="{Binding AddAccountCommand}"/>
             </StackPanel>
@@ -106,21 +106,21 @@
                                     <StackPanel Orientation="Horizontal">
                                         <ui:Button 
                                             Content="验证"
-                                            Icon="{ui:SymbolIcon Checkmark}"
+                                            Icon="{ui:SymbolIcon Checkmark24}"
                                             Appearance="Secondary"
                                             Margin="0,0,4,0"
                                             Command="{Binding DataContext.ValidateSessionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
                                         <ui:Button 
                                             Content="更新Cookie"
-                                            Icon="{ui:SymbolIcon ArrowSync}"
+                                            Icon="{ui:SymbolIcon ArrowSync24}"
                                             Appearance="Secondary"
                                             Margin="0,0,4,0"
                                             Command="{Binding DataContext.UpdateCookieCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
                                         <ui:Button 
                                             Content="删除"
-                                            Icon="{ui:SymbolIcon Delete}"
+                                            Icon="{ui:SymbolIcon Delete24}"
                                             Appearance="Danger"
                                             Command="{Binding DataContext.DeleteSessionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
@@ -137,7 +137,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="{Binding HasNoSessions, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <ui:SymbolIcon Symbol="Person" FontSize="64" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
+                    <ui:SymbolIcon Symbol="Person24" FontSize="64" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
                     <TextBlock 
                         Text="暂无账号"
                         FontSize="18"

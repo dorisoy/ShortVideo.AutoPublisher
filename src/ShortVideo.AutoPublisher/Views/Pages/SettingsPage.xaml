@@ -31,7 +31,7 @@
             <!-- 网络设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Globe" />
+                    <ui:SymbolIcon Symbol="Globe24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -88,7 +88,7 @@
             <!-- 浏览器设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Window" />
+                    <ui:SymbolIcon Symbol="Window24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -134,7 +134,7 @@
                                     Margin="0,0,8,0"/>
                                 <ui:Button 
                                     Content="浏览"
-                                    Icon="{ui:SymbolIcon Folder}"
+                                    Icon="{ui:SymbolIcon Folder24}"
                                     Command="{Binding BrowseUserDataDirCommand}"/>
                             </StackPanel>
                         </Grid>
@@ -159,7 +159,7 @@
             <!-- OpenClaw AI代理设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Bot" />
+                    <ui:SymbolIcon Symbol="Bot24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -214,7 +214,7 @@
             <!-- 存储设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Archive" />
+                    <ui:SymbolIcon Symbol="Archive24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -248,7 +248,7 @@
                                     Margin="0,0,8,0"/>
                                 <ui:Button 
                                     Content="浏览"
-                                    Icon="{ui:SymbolIcon Folder}"
+                                    Icon="{ui:SymbolIcon Folder24}"
                                     Command="{Binding BrowseDownloadPathCommand}"/>
                             </StackPanel>
                         </Grid>
@@ -259,7 +259,7 @@
             <!-- 日志设置 -->
             <ui:CardExpander IsExpanded="False" Margin="0,0,0,12">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Document" />
+                    <ui:SymbolIcon Symbol="Document24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -300,7 +300,7 @@
             <!-- 关于 -->
             <ui:CardExpander IsExpanded="False" Margin="0,0,0,24">
                 <ui:CardExpander.Icon>
-                    <ui:SymbolIcon Symbol="Info" />
+                    <ui:SymbolIcon Symbol="Info24" />
                 </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
@@ -320,12 +320,12 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button 
                     Content="重置默认"
-                    Icon="{ui:SymbolIcon ArrowReset}"
+                    Icon="{ui:SymbolIcon ArrowReset24}"
                     Margin="0,0,8,0"
                     Command="{Binding ResetToDefaultCommand}"/>
                 <ui:Button 
                     Content="保存设置"
-                    Icon="{ui:SymbolIcon Save}"
+                    Icon="{ui:SymbolIcon Save24}"
                     Appearance="Primary"
                     Command="{Binding SaveSettingsCommand}"/>
             </StackPanel>
