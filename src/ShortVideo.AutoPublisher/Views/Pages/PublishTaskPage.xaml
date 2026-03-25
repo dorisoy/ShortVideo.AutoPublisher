@@ -13,36 +13,56 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,24">
-            <TextBlock FontSize="32" FontWeight="SemiBold" Text="发布任务" />
+            <TextBlock FontSize="32"
+                       FontWeight="SemiBold"
+                       Text="发布任务"
+                       Foreground="White" />
             <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="查看和管理视频发布任务，监控发布进度" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Margin="0,0,0,24" Orientation="Horizontal">
-            <ui:CardControl Width="150">
+            <ui:CardControl Width="160" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Clock" FontSize="28" Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Text="{Binding PendingCount}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="等待中" />
+                <TextBlock Text="等待中" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:CardControl Width="150">
+            <ui:CardControl Width="160" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Play" FontSize="28" Foreground="DeepSkyBlue"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="DeepSkyBlue" Text="{Binding RunningCount}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="执行中" />
+                <TextBlock Text="执行中" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:CardControl Width="150">
+            <ui:CardControl Width="160" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Checkmark" FontSize="28" Foreground="LimeGreen"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding CompletedCount}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="已完成" />
+                <TextBlock Text="已完成" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:CardControl Width="150">
+            <ui:CardControl Width="160" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Dismiss" FontSize="28" Foreground="Red"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="Red" Text="{Binding FailedCount}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="失败" />
+                <TextBlock Text="失败" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:Button Appearance="Primary" Command="{Binding LoadDataCommand}" Content="刷新" />
+            <ui:Button 
+                Appearance="Primary" 
+                Icon="{ui:SymbolIcon ArrowSync}" 
+                Command="{Binding LoadDataCommand}" 
+                Content="刷新" 
+                VerticalAlignment="Center"/>
         </StackPanel>
 
         <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Tasks}">
@@ -57,9 +77,27 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <ui:Button Appearance="Info" Command="{Binding DataContext.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="详情" />
-                                <ui:Button Margin="4,0,0,0" Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="重试" IsEnabled="{Binding CanRetry}" />
-                                <ui:Button Margin="4,0,0,0" Appearance="Danger" Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="取消" IsEnabled="{Binding CanCancel}" />
+                                <ui:Button 
+                                    Appearance="Info" 
+                                    Icon="{ui:SymbolIcon Info}" 
+                                    Command="{Binding DataContext.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
+                                    CommandParameter="{Binding}" 
+                                    Content="详情" />
+                                <ui:Button 
+                                    Margin="4,0,0,0" 
+                                    Icon="{ui:SymbolIcon ArrowSync}" 
+                                    Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
+                                    CommandParameter="{Binding}" 
+                                    Content="重试" 
+                                    IsEnabled="{Binding CanRetry}" />
+                                <ui:Button 
+                                    Margin="4,0,0,0" 
+                                    Appearance="Danger" 
+                                    Icon="{ui:SymbolIcon Dismiss}" 
+                                    Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
+                                    CommandParameter="{Binding}" 
+                                    Content="取消" 
+                                    IsEnabled="{Binding CanCancel}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

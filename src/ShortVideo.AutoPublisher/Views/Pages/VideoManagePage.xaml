@@ -19,33 +19,42 @@
 
         <!-- 页面标题 -->
         <StackPanel Grid.Row="0" Margin="0,0,0,24">
-            <TextBlock FontSize="32" FontWeight="SemiBold" Text="视频库" />
+            <TextBlock FontSize="32"
+                       FontWeight="SemiBold"
+                       Text="视频库"
+                       Foreground="White" />
             <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="管理您的视频内容，支持搜索、编辑和一键发布到多平台" />
         </StackPanel>
 
         <!-- 工具栏 -->
-        <Grid Grid.Row="1" Margin="0,0,0,16">
-            <StackPanel Orientation="Horizontal">
-                <ui:TextBox
-                    Width="300"
-                    PlaceholderText="搜索视频标题或标签..."
-                    Text="{Binding ViewModel.SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
-                <ui:Button
-                    Margin="8,0,0,0"
-                    Command="{Binding ViewModel.SearchCommand}"
-                    Content="搜索" />
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <ui:Button
-                    Command="{Binding ViewModel.LoadDataCommand}"
-                    Content="刷新" />
-                <ui:Button
-                    Margin="8,0,0,0"
-                    Appearance="Primary"
-                    Content="添加视频"
-                    Click="ShowAddVideoDialog_Click" />
-            </StackPanel>
-        </Grid>
+        <ui:Card Grid.Row="1" Margin="0,0,0,16" Padding="12">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <ui:TextBox
+                        Width="300"
+                        Icon="{ui:SymbolIcon Search}"
+                        PlaceholderText="搜索视频标题或标签..."
+                        Text="{Binding ViewModel.SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
+                    <ui:Button
+                        Margin="8,0,0,0"
+                        Icon="{ui:SymbolIcon Search}"
+                        Command="{Binding ViewModel.SearchCommand}"
+                        Content="搜索" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,8,0"
+                        Icon="{ui:SymbolIcon ArrowSync}"
+                        Command="{Binding ViewModel.LoadDataCommand}"
+                        Content="刷新" />
+                    <ui:Button
+                        Appearance="Primary"
+                        Icon="{ui:SymbolIcon Add}"
+                        Content="添加视频"
+                        Click="ShowAddVideoDialog_Click" />
+                </StackPanel>
+            </Grid>
+        </ui:Card>
 
         <!-- 视频列表 -->
         <DataGrid
@@ -66,19 +75,23 @@
                             <StackPanel Orientation="Horizontal">
                                 <ui:Button
                                     Appearance="Info"
+                                    Icon="{ui:SymbolIcon Play}"
                                     Command="{Binding DataContext.ViewModel.PreviewVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
                                     Content="预览" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Primary"
+                                    Icon="{ui:SymbolIcon Send}"
                                     Content="发布" />
                                 <ui:Button
                                     Margin="4,0,0,0"
+                                    Icon="{ui:SymbolIcon Edit}"
                                     Content="编辑" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Danger"
+                                    Icon="{ui:SymbolIcon Delete}"
                                     Command="{Binding DataContext.ViewModel.DeleteVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
                                     Content="删除" />

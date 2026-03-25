@@ -17,14 +17,22 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24">
             <!-- 页面标题 -->
-            <TextBlock 
-                Text="设置"
-                FontSize="24"
-                FontWeight="SemiBold"
-                Margin="0,0,0,24"/>
+            <StackPanel Margin="0,0,0,24">
+                <TextBlock 
+                    Text="设置"
+                    FontSize="32"
+                    FontWeight="SemiBold"
+                    Foreground="White"/>
+                <TextBlock 
+                    Text="配置应用程序的网络、浏览器和存储选项"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
 
             <!-- 网络设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Globe" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="网络设置" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -79,6 +87,9 @@
 
             <!-- 浏览器设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Window" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="浏览器设置" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -123,6 +134,7 @@
                                     Margin="0,0,8,0"/>
                                 <ui:Button 
                                     Content="浏览"
+                                    Icon="{ui:SymbolIcon Folder}"
                                     Command="{Binding BrowseUserDataDirCommand}"/>
                             </StackPanel>
                         </Grid>
@@ -146,6 +158,9 @@
 
             <!-- OpenClaw AI代理设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Bot" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="OpenClaw AI代理" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -198,6 +213,9 @@
 
             <!-- 存储设置 -->
             <ui:CardExpander IsExpanded="True" Margin="0,0,0,12">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Archive" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="存储设置" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -230,6 +248,7 @@
                                     Margin="0,0,8,0"/>
                                 <ui:Button 
                                     Content="浏览"
+                                    Icon="{ui:SymbolIcon Folder}"
                                     Command="{Binding BrowseDownloadPathCommand}"/>
                             </StackPanel>
                         </Grid>
@@ -239,6 +258,9 @@
 
             <!-- 日志设置 -->
             <ui:CardExpander IsExpanded="False" Margin="0,0,0,12">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Document" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="日志设置" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -277,6 +299,9 @@
 
             <!-- 关于 -->
             <ui:CardExpander IsExpanded="False" Margin="0,0,0,24">
+                <ui:CardExpander.Icon>
+                    <ui:SymbolIcon Symbol="Info" />
+                </ui:CardExpander.Icon>
                 <ui:CardExpander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="关于" FontWeight="SemiBold" VerticalAlignment="Center"/>
@@ -295,10 +320,12 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button 
                     Content="重置默认"
+                    Icon="{ui:SymbolIcon ArrowReset}"
                     Margin="0,0,8,0"
                     Command="{Binding ResetToDefaultCommand}"/>
                 <ui:Button 
                     Content="保存设置"
+                    Icon="{ui:SymbolIcon Save}"
                     Appearance="Primary"
                     Command="{Binding SaveSettingsCommand}"/>
             </StackPanel>

@@ -21,26 +21,32 @@
         </Grid.RowDefinitions>
 
         <!-- 顶部工具栏 -->
-        <Grid Grid.Row="0" Margin="0,0,0,16">
+        <Grid Grid.Row="0" Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock 
-                Grid.Column="0"
-                Text="账号管理"
-                FontSize="24"
-                FontWeight="SemiBold"
-                VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="0">
+                <TextBlock 
+                    Text="账号管理"
+                    FontSize="32"
+                    FontWeight="SemiBold"
+                    Foreground="White"/>
+                <TextBlock 
+                    Text="管理各平台账号的登录状态和Cookie信息"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <ui:Button 
                     Content="刷新状态"
+                    Icon="{ui:SymbolIcon ArrowSync}"
                     Margin="0,0,8,0"
                     Command="{Binding RefreshAllStatusCommand}"/>
                 <ui:Button 
                     Content="添加账号"
+                    Icon="{ui:SymbolIcon PersonAdd}"
                     Appearance="Primary"
                     Command="{Binding AddAccountCommand}"/>
             </StackPanel>
@@ -100,18 +106,21 @@
                                     <StackPanel Orientation="Horizontal">
                                         <ui:Button 
                                             Content="验证"
+                                            Icon="{ui:SymbolIcon Checkmark}"
                                             Appearance="Secondary"
                                             Margin="0,0,4,0"
                                             Command="{Binding DataContext.ValidateSessionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
                                         <ui:Button 
                                             Content="更新Cookie"
+                                            Icon="{ui:SymbolIcon ArrowSync}"
                                             Appearance="Secondary"
                                             Margin="0,0,4,0"
                                             Command="{Binding DataContext.UpdateCookieCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
                                         <ui:Button 
                                             Content="删除"
+                                            Icon="{ui:SymbolIcon Delete}"
                                             Appearance="Danger"
                                             Command="{Binding DataContext.DeleteSessionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
@@ -128,10 +137,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="{Binding HasNoSessions, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ui:SymbolIcon Symbol="Person" FontSize="64" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
                     <TextBlock 
                         Text="暂无账号"
-                        FontSize="16"
-                        Margin="0,12,0,4"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Margin="0,0,0,8"
                         HorizontalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                     <TextBlock 

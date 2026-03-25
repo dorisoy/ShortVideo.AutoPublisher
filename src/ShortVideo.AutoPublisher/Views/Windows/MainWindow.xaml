@@ -44,21 +44,26 @@
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
                     Content="仪表盘"
+                    Icon="{ui:SymbolIcon Home}"
                     TargetPageType="{x:Type pages:DashboardPage}" />
                 <ui:NavigationViewItem
                     Content="视频库"
+                    Icon="{ui:SymbolIcon Video}"
                     TargetPageType="{x:Type pages:VideoManagePage}" />
                 <ui:NavigationViewItem
                     Content="发布任务"
+                    Icon="{ui:SymbolIcon Send}"
                     TargetPageType="{x:Type pages:PublishTaskPage}" />
                 <ui:NavigationViewItem
                     Content="账号管理"
+                    Icon="{ui:SymbolIcon Person}"
                     TargetPageType="{x:Type pages:CookieSessionPage}" />
             </ui:NavigationView.MenuItems>
 
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem
                     Content="设置"
+                    Icon="{ui:SymbolIcon Settings}"
                     TargetPageType="{x:Type pages:SettingsPage}" />
             </ui:NavigationView.FooterMenuItems>
 

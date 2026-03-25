@@ -25,7 +25,7 @@
             <TextBlock
                 FontSize="32"
                 FontWeight="SemiBold"
-                Text="仪表盘" />
+                Text="仪表盘"  Foreground="White"/>
             <TextBlock
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="系统概览和快捷操作" />
@@ -36,29 +36,41 @@
             Grid.Row="1"
             Margin="0,0,0,24"
             Orientation="Horizontal">
-            <ui:CardControl Width="200">
+            <ui:CardControl Width="200" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Video" FontSize="32" Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Text="{Binding ViewModel.TotalVideos}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="视频总数" />
+                <TextBlock Text="视频总数" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:CardControl Width="200">
+            <ui:CardControl Width="200" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Send" FontSize="32" Foreground="LimeGreen"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding ViewModel.TodayPublished}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="今日发布" />
+                <TextBlock Text="今日发布" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
-            <ui:CardControl Width="200">
+            <ui:CardControl Width="200" Margin="0,0,12,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Clock" FontSize="32" Foreground="Orange"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="Orange" Text="{Binding ViewModel.PendingTasks}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="待处理" />
+                <TextBlock Text="待处理" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
             <ui:CardControl Width="200">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Warning" FontSize="32" Foreground="Red"/>
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="Red" Text="{Binding ViewModel.FailedTasks}" />
                 </ui:CardControl.Header>
-                <TextBlock Text="失败任务" />
+                <TextBlock Text="失败任务" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:CardControl>
         </StackPanel>
 
@@ -73,19 +85,27 @@
                 <TextBlock
                     Margin="0,0,0,12"
                     FontWeight="SemiBold"
-                    Text="快捷操作" />
+                           Text="快捷操作"
+                           Foreground="White" />
                 <StackPanel Orientation="Horizontal">
                     <ui:Button
+                        Margin="0,0,8,0"
+                        Icon="{ui:SymbolIcon Add}"
                         Command="{Binding ViewModel.NavigateToAddVideoCommand}"
                         Content="添加视频" />
                     <ui:Button
+                        Margin="0,0,8,0"
+                        Icon="{ui:SymbolIcon Send}"
                         Command="{Binding ViewModel.NavigateToCreateTaskCommand}"
                         Content="创建任务" />
                     <ui:Button
+                        Margin="0,0,8,0"
+                        Icon="{ui:SymbolIcon Person}"
                         Command="{Binding ViewModel.NavigateToManageAccountCommand}"
                         Content="管理账号" />
                     <ui:Button
                         Appearance="Primary"
+                        Icon="{ui:SymbolIcon Flash}"
                         Command="{Binding ViewModel.OneClickPublishCommand}"
                         Content="一键发布" />
                 </StackPanel>
@@ -96,7 +116,8 @@
                     <TextBlock
                         Margin="0,0,12,0"
                         FontWeight="SemiBold"
-                        Text="平台连接状态" />
+                               Text="平台连接状态"
+                               Foreground="White" />
                     <TextBlock Foreground="LimeGreen" Text="{Binding ViewModel.ConnectedAccounts, StringFormat={}{0} 已连接}" />
                     <TextBlock Margin="8,0" Text="/" />
                     <TextBlock Foreground="Orange" Text="{Binding ViewModel.ExpiredAccounts, StringFormat={}{0} 已过期}" />
@@ -115,7 +136,8 @@
                                     Height="8"
                                     Margin="0,0,4,0"
                                     Fill="{Binding IsConnected, Converter={StaticResource BoolToColorConverter}}" />
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"
+                                           Foreground="White" />
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -126,7 +148,9 @@
         <!-- 最近任务 -->
         <StackPanel Grid.Row="3" Margin="0,0,0,8">
             <Grid>
-                <TextBlock FontWeight="SemiBold" Text="最近任务" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="最近任务"
+                           Foreground="White" />
                 <ui:Button
                     HorizontalAlignment="Right"
                     Appearance="Transparent"
@@ -169,6 +193,7 @@
             <ui:Button
                 HorizontalAlignment="Right"
                 Command="{Binding ViewModel.LoadDataCommand}"
+                Icon="{ui:SymbolIcon ArrowSync}"
                 Content="刷新" />
         </Grid>
     </Grid>

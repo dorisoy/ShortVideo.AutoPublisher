@@ -81,9 +81,9 @@ public partial class PublishTaskViewModel : ViewModelBase
     public Task LoadTasksAsync() => LoadDataAsync();
 
     [RelayCommand]
-    private async Task RetryTaskAsync(PublishTask? task)
+    private async Task RetryTaskAsync(object? parameter)
     {
-        if (task == null || !task.CanRetry) return;
+        if (parameter is not PublishTask task || !task.CanRetry) return;
 
         try
         {
@@ -98,9 +98,9 @@ public partial class PublishTaskViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task CancelTaskAsync(PublishTask? task)
+    private async Task CancelTaskAsync(object? parameter)
     {
-        if (task == null || !task.CanCancel) return;
+        if (parameter is not PublishTask task || !task.CanCancel) return;
 
         try
         {
@@ -115,9 +115,9 @@ public partial class PublishTaskViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void ViewTaskDetail(PublishTask? task)
+    private void ViewTaskDetail(object? parameter)
     {
-        if (task == null) return;
+        if (parameter is not PublishTask task) return;
         SelectedTask = task;
         // 可以在这里弹出详情对话框
         _snackbarService.Show("任务详情", $"视频: {task.VideoTitle}\n平台: {task.PlatformDisplayName}\n状态: {task.StatusDisplayName}", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(5));
