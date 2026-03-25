@@ -1,5 +1,6 @@
 using ShortVideo.AutoPublisher.ViewModels;
 using ShortVideo.AutoPublisher.Views.Pages;
+using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -32,7 +33,13 @@ public partial class MainWindow : FluentWindow
         // 设置对话框服务
         contentDialogService.SetContentPresenter(RootContentDialog);
 
-        // 导航到首页
+        // 在窗口加载完成后导航到首页
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        // 导航到仪表盘页面
         RootNavigation.Navigate(typeof(DashboardPage));
     }
 }

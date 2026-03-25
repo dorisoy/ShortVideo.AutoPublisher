@@ -20,32 +20,32 @@
         <StackPanel Grid.Row="1" Margin="0,0,0,24" Orientation="Horizontal">
             <ui:CardControl Width="150">
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="28" FontWeight="Bold" Text="{Binding ViewModel.PendingCount}" />
+                    <TextBlock FontSize="28" FontWeight="Bold" Text="{Binding PendingCount}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="等待中" />
             </ui:CardControl>
             <ui:CardControl Width="150">
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="DeepSkyBlue" Text="{Binding ViewModel.RunningCount}" />
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="DeepSkyBlue" Text="{Binding RunningCount}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="执行中" />
             </ui:CardControl>
             <ui:CardControl Width="150">
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding ViewModel.CompletedCount}" />
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding CompletedCount}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="已完成" />
             </ui:CardControl>
             <ui:CardControl Width="150">
                 <ui:CardControl.Header>
-                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="Red" Text="{Binding ViewModel.FailedCount}" />
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="Red" Text="{Binding FailedCount}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="失败" />
             </ui:CardControl>
-            <ui:Button Appearance="Primary" Command="{Binding ViewModel.LoadDataCommand}" Content="刷新" Icon="{ui:SymbolIcon ArrowSync24}" />
+            <ui:Button Appearance="Primary" Command="{Binding LoadDataCommand}" Content="刷新" />
         </StackPanel>
 
-        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding ViewModel.Tasks}">
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Tasks}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="60" Binding="{Binding Id}" Header="ID" />
                 <DataGridTextColumn Width="*" Binding="{Binding VideoTitle}" Header="视频标题" />
@@ -57,9 +57,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <ui:Button Appearance="Info" Command="{Binding DataContext.ViewModel.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="详情" />
-                                <ui:Button Margin="4,0,0,0" Command="{Binding DataContext.ViewModel.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="重试" IsEnabled="{Binding CanRetry}" />
-                                <ui:Button Margin="4,0,0,0" Appearance="Danger" Command="{Binding DataContext.ViewModel.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="取消" IsEnabled="{Binding CanCancel}" />
+                                <ui:Button Appearance="Info" Command="{Binding DataContext.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="详情" />
+                                <ui:Button Margin="4,0,0,0" Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="重试" IsEnabled="{Binding CanRetry}" />
+                                <ui:Button Margin="4,0,0,0" Appearance="Danger" Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="取消" IsEnabled="{Binding CanCancel}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

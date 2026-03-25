@@ -33,19 +33,16 @@
                 <ui:Button
                     Margin="8,0,0,0"
                     Command="{Binding ViewModel.SearchCommand}"
-                    Content="搜索"
-                    Icon="{ui:SymbolIcon Search24}" />
+                    Content="搜索" />
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <ui:Button
                     Command="{Binding ViewModel.LoadDataCommand}"
-                    Content="刷新"
-                    Icon="{ui:SymbolIcon ArrowSync24}" />
+                    Content="刷新" />
                 <ui:Button
                     Margin="8,0,0,0"
                     Appearance="Primary"
                     Content="添加视频"
-                    Icon="{ui:SymbolIcon Add24}"
                     Click="ShowAddVideoDialog_Click" />
             </StackPanel>
         </Grid>
@@ -69,24 +66,20 @@
                                     Appearance="Info"
                                     Command="{Binding DataContext.ViewModel.PreviewVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
-                                    Content="预览"
-                                    Icon="{ui:SymbolIcon Play24}" />
+                                    Content="预览" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Primary"
-                                    Content="发布"
-                                    Icon="{ui:SymbolIcon Send24}" />
+                                    Content="发布" />
                                 <ui:Button
                                     Margin="4,0,0,0"
-                                    Content="编辑"
-                                    Icon="{ui:SymbolIcon Edit24}" />
+                                    Content="编辑" />
                                 <ui:Button
                                     Margin="4,0,0,0"
                                     Appearance="Danger"
                                     Command="{Binding DataContext.ViewModel.DeleteVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}"
-                                    Content="删除"
-                                    Icon="{ui:SymbolIcon Delete24}" />
+                                    Content="删除" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

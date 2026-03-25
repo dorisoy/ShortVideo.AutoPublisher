@@ -60,7 +60,6 @@
             <!-- 提示信息 -->
             <ui:Card Padding="12" Margin="0,0,0,16">
                 <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon Symbol="Info24" Margin="0,0,8,0" Foreground="{DynamicResource SystemAccentColorSecondaryBrush}"/>
                     <TextBlock 
                         Text="添加账号后，需要通过浏览器登录获取Cookie"
                         TextWrapping="Wrap"

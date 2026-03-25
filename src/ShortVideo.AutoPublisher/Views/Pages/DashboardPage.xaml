@@ -36,25 +36,25 @@
             Grid.Row="1"
             Margin="0,0,0,24"
             Orientation="Horizontal">
-            <ui:CardControl Width="200" Icon="{ui:SymbolIcon Video24}">
+            <ui:CardControl Width="200">
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Text="{Binding ViewModel.TotalVideos}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="视频总数" />
             </ui:CardControl>
-            <ui:CardControl Width="200" Icon="{ui:SymbolIcon Send24}">
+            <ui:CardControl Width="200">
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="LimeGreen" Text="{Binding ViewModel.TodayPublished}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="今日发布" />
             </ui:CardControl>
-            <ui:CardControl Width="200" Icon="{ui:SymbolIcon Clock24}">
+            <ui:CardControl Width="200">
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="Orange" Text="{Binding ViewModel.PendingTasks}" />
                 </ui:CardControl.Header>
                 <TextBlock Text="待处理" />
             </ui:CardControl>
-            <ui:CardControl Width="200" Icon="{ui:SymbolIcon Warning24}">
+            <ui:CardControl Width="200">
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36" FontWeight="Bold" Foreground="Red" Text="{Binding ViewModel.FailedTasks}" />
                 </ui:CardControl.Header>
@@ -77,21 +77,17 @@
                 <StackPanel Orientation="Horizontal">
                     <ui:Button
                         Command="{Binding ViewModel.NavigateToAddVideoCommand}"
-                        Content="添加视频"
-                        Icon="{ui:SymbolIcon Add24}" />
+                        Content="添加视频" />
                     <ui:Button
                         Command="{Binding ViewModel.NavigateToCreateTaskCommand}"
-                        Content="创建任务"
-                        Icon="{ui:SymbolIcon TaskListAdd24}" />
+                        Content="创建任务" />
                     <ui:Button
                         Command="{Binding ViewModel.NavigateToManageAccountCommand}"
-                        Content="管理账号"
-                        Icon="{ui:SymbolIcon Person24}" />
+                        Content="管理账号" />
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.OneClickPublishCommand}"
-                        Content="一键发布"
-                        Icon="{ui:SymbolIcon Flash24}" />
+                        Content="一键发布" />
                 </StackPanel>
             </StackPanel>
 
@@ -134,8 +130,7 @@
                 <ui:Button
                     HorizontalAlignment="Right"
                     Appearance="Transparent"
-                    Content="查看全部"
-                    Icon="{ui:SymbolIcon ChevronRight24}" />
+                    Content="查看全部" />
             </Grid>
         </StackPanel>
 
@@ -166,7 +161,6 @@
         <!-- 状态栏 -->
         <Grid Grid.Row="5" Margin="0,16,0,0">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <ui:SymbolIcon Symbol="Info24" />
                 <TextBlock
                     Margin="4,0,0,0"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -175,8 +169,7 @@
             <ui:Button
                 HorizontalAlignment="Right"
                 Command="{Binding ViewModel.LoadDataCommand}"
-                Content="刷新"
-                Icon="{ui:SymbolIcon ArrowSync24}" />
+                Content="刷新" />
         </Grid>
     </Grid>
 </Page>

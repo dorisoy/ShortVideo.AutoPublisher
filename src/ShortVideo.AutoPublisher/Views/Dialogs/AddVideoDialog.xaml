@@ -63,7 +63,6 @@
                     <ui:Button 
                         Grid.Column="1"
                         Content="浏览"
-                        Icon="{ui:SymbolIcon Folder24}"
                         Click="BrowseVideo_Click"/>
                 </Grid>
 
@@ -83,7 +82,6 @@
                     <ui:Button 
                         Grid.Column="1"
                         Content="浏览"
-                        Icon="{ui:SymbolIcon Image24}"
                         Click="BrowseCover_Click"/>
                 </Grid>
 
