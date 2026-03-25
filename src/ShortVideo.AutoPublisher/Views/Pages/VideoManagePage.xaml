@@ -48,12 +48,14 @@
         </Grid>
 
         <!-- 视频列表 -->
-        <ui:DataGrid
+        <DataGrid
             Grid.Row="2"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
             ItemsSource="{Binding ViewModel.Videos}"
             SelectedItem="{Binding ViewModel.SelectedVideo}">
-            <ui:DataGrid.Columns>
+            <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding Title}" Header="视频标题" />
                 <DataGridTextColumn Width="150" Binding="{Binding Tags}" Header="标签" />
                 <DataGridTextColumn Width="100" Binding="{Binding FormattedFileSize}" Header="文件大小" />
@@ -84,7 +86,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </ui:DataGrid.Columns>
-        </ui:DataGrid>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

@@ -139,9 +139,9 @@ public partial class VideoManageViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task DeleteVideoAsync(VideoContent? video)
+    private async Task DeleteVideoAsync(object? parameter)
     {
-        if (video == null) return;
+        if (parameter is not VideoContent video) return;
 
         try
         {
@@ -156,9 +156,10 @@ public partial class VideoManageViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void PreviewVideo(VideoContent? video)
+    private void PreviewVideo(object? parameter)
     {
-        if (video == null || !File.Exists(video.FilePath)) return;
+        if (parameter is not VideoContent video) return;
+        if (!File.Exists(video.FilePath)) return;
 
         try
         {
