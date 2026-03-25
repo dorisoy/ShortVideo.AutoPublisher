@@ -2,7 +2,9 @@
 
 > 基于 WPF 的多平台短视频一键发布解决方案
 
-### 完整源码: [https://shop.unitos.cn/item/8](https://shop.unitos.cn/item/8)
+### 最新源码下载: [https://shop.unitos.cn/item/8](https://shop.unitos.cn/item/8)
+
+### OpenClaw集成: [代理使用指南](https://github.com/dorisoy/ShortVideo.AutoPublisher/blob/main/OpenClaw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.md)
 
 ## 一、产品概述
 
