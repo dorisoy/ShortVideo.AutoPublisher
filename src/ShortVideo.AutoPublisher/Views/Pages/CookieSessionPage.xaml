@@ -14,7 +14,7 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Grid Margin="24">
+    <Grid Margin="24" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -48,7 +48,7 @@
                     Content="添加账号"
                     Icon="{ui:SymbolIcon PersonAdd24}"
                     Appearance="Primary"
-                    Command="{Binding AddAccountCommand}"/>
+                    Click="ShowAddAccountDialog_Click"/>
             </StackPanel>
         </Grid>
 
@@ -122,7 +122,7 @@
                                             Content="删除"
                                             Icon="{ui:SymbolIcon Delete24}"
                                             Appearance="Danger"
-                                            Command="{Binding DataContext.DeleteSessionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            Command="{Binding DataContext.DeleteAccountCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -136,7 +136,7 @@
                     Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Visibility="{Binding HasNoSessions, Converter={StaticResource BoolToVisibilityConverter}}">
+                    Visibility="Hidden">
                     <ui:SymbolIcon Symbol="Person24" FontSize="64" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
                     <TextBlock 
                         Text="暂无账号"

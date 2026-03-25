@@ -41,5 +41,6 @@ public partial class MainWindow : FluentWindow
     {
         // 导航到仪表盘页面
         RootNavigation.Navigate(typeof(DashboardPage));
+
     }
 }

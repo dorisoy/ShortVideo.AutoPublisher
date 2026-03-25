@@ -13,39 +13,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Core 项目引用 -->
+    <ProjectReference Include="..\ShortVideo.AutoPublisher.Core\ShortVideo.AutoPublisher.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- MVVM Framework -->
     <PackageReference Include="CommunityToolkit.Mvvm" />
-    
-    <!-- Database -->
-    <PackageReference Include="Dapper" />
-    <PackageReference Include="System.Data.SQLite" />
-    
-    <!-- Microsoft Extensions -->
-    <PackageReference Include="Microsoft.Extensions.Hosting" />
-    
-    <!-- Browser Automation -->
-    <PackageReference Include="Microsoft.Playwright" />
-    
-    <!-- Image Processing -->
-    <PackageReference Include="SixLabors.ImageSharp" />
-    
-    <!-- Logging -->
-    <PackageReference Include="Serilog" />
-    <PackageReference Include="Serilog.Sinks.File" />
-    <PackageReference Include="Serilog.Extensions.Hosting" />
-    
-    <!-- Resilience -->
-    <PackageReference Include="Polly" />
     
     <!-- WPF UI -->
     <PackageReference Include="WPF-UI" />
     <PackageReference Include="WPF-UI.Tray" />
   </ItemGroup>
 
+  <!-- 排除已移动到 Core 的文件夹 -->
+  <ItemGroup>
+    <Compile Remove="Core\**" />
+    <Compile Remove="Domain\**" />
+    <Compile Remove="Infrastructure\**" />
+    <Compile Remove="OpenClaw\**" />
+    <Compile Remove="Services\**" />
+    <None Remove="Core\**" />
+    <None Remove="Domain\**" />
+    <None Remove="Infrastructure\**" />
+    <None Remove="OpenClaw\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>
