@@ -82,9 +82,9 @@
                     HeadersVisibility="Column"
                     SelectionMode="Single">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="平台" Binding="{Binding Platform}" Width="100"/>
-                        <DataGridTextColumn Header="账号名称" Binding="{Binding AccountName}" Width="150"/>
-                        <DataGridTextColumn Header="账号ID" Binding="{Binding AccountId}" Width="150"/>
+                        <DataGridTextColumn Header="平台" Binding="{Binding Platform, Mode=OneWay}" Width="100"/>
+                        <DataGridTextColumn Header="账号名称" Binding="{Binding AccountName, Mode=OneWay}" Width="150"/>
+                        <DataGridTextColumn Header="账号ID" Binding="{Binding AccountId, Mode=OneWay}" Width="150"/>
                         <DataGridTemplateColumn Header="状态" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -98,8 +98,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="最后验证时间" Binding="{Binding LastValidatedAt, StringFormat=yyyy-MM-dd HH:mm}" Width="150"/>
-                        <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" Width="150"/>
+                        <DataGridTextColumn Header="最后验证时间" Binding="{Binding LastValidatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}" Width="150"/>
+                        <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}" Width="150"/>
                         <DataGridTemplateColumn Header="操作" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -65,10 +65,10 @@
             ItemsSource="{Binding ViewModel.Videos}"
             SelectedItem="{Binding ViewModel.SelectedVideo}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Binding="{Binding Title}" Header="视频标题" />
-                <DataGridTextColumn Width="150" Binding="{Binding Tags}" Header="标签" />
-                <DataGridTextColumn Width="100" Binding="{Binding FormattedFileSize}" Header="文件大小" />
-                <DataGridTextColumn Width="150" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" Header="创建时间" />
+                <DataGridTextColumn Width="*" Binding="{Binding Title, Mode=OneWay}" Header="视频标题" />
+                <DataGridTextColumn Width="150" Binding="{Binding Tags, Mode=OneWay}" Header="标签" />
+                <DataGridTextColumn Width="100" Binding="{Binding FormattedFileSize, Mode=OneWay}" Header="文件大小" />
+                <DataGridTextColumn Width="150" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}" Header="创建时间" />
                 <DataGridTemplateColumn Width="280" Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
