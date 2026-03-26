@@ -1,5 +1,6 @@
 using ShortVideo.AutoPublisher.ViewModels.Pages;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Wpf.Ui.Controls;
 
 namespace ShortVideo.AutoPublisher.Views.Pages;
@@ -20,12 +21,26 @@ public partial class SettingsPage : Page
         if (DataContext is SettingsViewModel viewModel)
         {
             viewModel.LoadSettings();
+        }
+    }
 
-            //Wpf.Ui.Controls.Button button= new Wpf.Ui.Controls.Button
-            //{
-            //    Content = "测试按钮",
-            //    Icon =  new Wpf.Ui.Controls.SymbolIcon(SymbolRegular.Home24),
-            //};
+    /// <summary>
+    /// 处理鼠标滚轮事件，确保 ScrollViewer 可以正常滚动
+    /// </summary>
+    private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        if (sender is ScrollViewer scrollViewer)
+        {
+            // 根据滚轮方向滚动
+            if (e.Delta > 0)
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - 50);
+            }
+            else
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + 50);
+            }
+            e.Handled = true;
         }
     }
 }

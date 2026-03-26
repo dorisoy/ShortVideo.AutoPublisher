@@ -45,7 +45,8 @@
                 <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Video24"
                                    FontSize="32"
-                                   Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" />
+                                   Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                                   VerticalAlignment="Top"/>
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
                     <TextBlock FontSize="36"
@@ -156,11 +157,12 @@
                                Text="{Binding ViewModel.ExpiredAccounts, StringFormat={}{0} 已过期}" />
                 </StackPanel>
                 <ItemsControl Margin="0,8,0,0"
-                              ItemsSource="{Binding ViewModel.PlatformStatus}" 
-                              Background="#333333" Padding="10">
+                              ItemsSource="{Binding ViewModel.PlatformStatus}"
+                              Background="#333333"
+                              Padding="10">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
+                            <StackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
