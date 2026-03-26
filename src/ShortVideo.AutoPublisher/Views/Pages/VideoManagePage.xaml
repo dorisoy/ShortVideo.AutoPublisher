@@ -45,6 +45,10 @@
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal">
                     <ui:Button Margin="0,0,8,0"
+                               Icon="{ui:SymbolIcon SelectAllOn24}"
+                               Command="{Binding ViewModel.ToggleMultiSelectModeCommand}"
+                               Content="批量操作" />
+                    <ui:Button Margin="0,0,8,0"
                                Icon="{ui:SymbolIcon ArrowSync24}"
                                Command="{Binding ViewModel.LoadDataCommand}"
                                Content="刷新" />
@@ -89,9 +93,15 @@
                                 <ui:Button Margin="4,0,0,0"
                                            Appearance="Primary"
                                            Icon="{ui:SymbolIcon Send24}"
+                                           Command="{Binding DataContext.ViewModel.StartPublishVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                           CommandParameter="{Binding}"
+                                           Click="ShowPublishDialog_Click"
                                            Content="发布" />
                                 <ui:Button Margin="4,0,0,0"
                                            Icon="{ui:SymbolIcon Edit24}"
+                                           Command="{Binding DataContext.ViewModel.StartEditVideoCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                           CommandParameter="{Binding}"
+                                           Click="ShowEditVideoDialog_Click"
                                            Content="编辑" />
                                 <ui:Button Margin="4,0,0,0"
                                            Appearance="Danger"

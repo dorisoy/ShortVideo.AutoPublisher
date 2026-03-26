@@ -8,6 +8,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -21,8 +22,39 @@
                        Text="查看和管理视频发布任务，监控发布进度" />
         </StackPanel>
 
-        <Grid Grid.Row="1"
-                    Margin="0,0,0,24">
+        <!-- 搜索和筛选工具栏 -->
+        <ui:Card Grid.Row="1" Margin="0,0,0,16" Padding="12">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <ui:TextBox Width="250"
+                                Icon="{ui:SymbolIcon Search24}"
+                                PlaceholderText="搜索视频标题或平台..."
+                                Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
+                    <ui:Button Margin="8,0,0,0"
+                               Icon="{ui:SymbolIcon Search24}"
+                               Command="{Binding SearchCommand}"
+                               Content="搜索" />
+                    <ComboBox Margin="16,0,0,0"
+                              Width="120"
+                              ItemsSource="{Binding StatusFilters}"
+                              DisplayMemberPath="Name"
+                              SelectedIndex="0"
+                              SelectionChanged="StatusFilter_SelectionChanged" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ui:Button Margin="0,0,8,0"
+                               Icon="{ui:SymbolIcon SelectAllOn24}"
+                               Command="{Binding ToggleMultiSelectModeCommand}"
+                               Content="批量操作" />
+                    <ui:Button Icon="{ui:SymbolIcon ArrowSync24}"
+                               Command="{Binding LoadDataCommand}"
+                               Content="刷新" />
+                </StackPanel>
+            </Grid>
+        </ui:Card>
+
+        <Grid Grid.Row="2"
+                    Margin="0,0,0,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -101,16 +133,16 @@
                 <TextBlock Text="失败"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:Button Appearance="Primary"
+            <ui:Button Appearance="Danger"
                        Grid.Column="4"
-                       Icon="{ui:SymbolIcon ArrowSync24}"
-                       Command="{Binding LoadDataCommand}"
-                       Content="刷新"
+                       Icon="{ui:SymbolIcon Delete24}"
+                       Command="{Binding BatchDeleteTasksCommand}"
+                       Content="批量删除"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch" />
         </Grid>
 
-        <DataGrid Grid.Row="2"
+        <DataGrid Grid.Row="3"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Tasks}">
             <DataGrid.Columns>
@@ -132,7 +164,7 @@
                 <DataGridTextColumn Width="150"
                                     Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}"
                                     Header="创建时间" />
-                <DataGridTemplateColumn Width="200"
+                <DataGridTemplateColumn Width="260"
                                         Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -141,6 +173,7 @@
                                            Icon="{ui:SymbolIcon Info24}"
                                            Command="{Binding DataContext.ViewTaskDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                            CommandParameter="{Binding}"
+                                           Click="ShowTaskDetailDialog_Click"
                                            Content="详情" />
                                 <ui:Button Margin="4,0,0,0"
                                            Icon="{ui:SymbolIcon ArrowSync24}"
@@ -149,12 +182,18 @@
                                            Content="重试"
                                            IsEnabled="{Binding CanRetry}" />
                                 <ui:Button Margin="4,0,0,0"
-                                           Appearance="Danger"
+                                           Appearance="Caution"
                                            Icon="{ui:SymbolIcon Dismiss24}"
                                            Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                            CommandParameter="{Binding}"
                                            Content="取消"
                                            IsEnabled="{Binding CanCancel}" />
+                                <ui:Button Margin="4,0,0,0"
+                                           Appearance="Danger"
+                                           Icon="{ui:SymbolIcon Delete24}"
+                                           Command="{Binding DataContext.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                           CommandParameter="{Binding}"
+                                           Content="删除" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

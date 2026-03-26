@@ -17,6 +17,8 @@ public partial class PublishTaskViewModel : ViewModelBase
     private readonly StatisticsService _statisticsService;
     private readonly ISnackbarService _snackbarService;
 
+    private List<PublishTask> _allTasks = [];
+
     [ObservableProperty]
     private ObservableCollection<PublishTask> _tasks = [];
 
@@ -35,6 +37,23 @@ public partial class PublishTaskViewModel : ViewModelBase
     [ObservableProperty]
     private int _failedCount;
 
+    // 筛选和搜索
+    [ObservableProperty]
+    private string _searchKeyword = string.Empty;
+
+    [ObservableProperty]
+    private PublishTaskStatus? _filterStatus;
+
+    [ObservableProperty]
+    private ObservableCollection<StatusFilterItem> _statusFilters = [];
+
+    // 批量操作
+    [ObservableProperty]
+    private ObservableCollection<PublishTask> _selectedTasks = [];
+
+    [ObservableProperty]
+    private bool _isMultiSelectMode;
+
     public PublishTaskViewModel(
         PublishService publishService,
         StatisticsService statisticsService,
@@ -43,6 +62,13 @@ public partial class PublishTaskViewModel : ViewModelBase
         _publishService = publishService;
         _statisticsService = statisticsService;
         _snackbarService = snackbarService;
+
+        // 初始化状态筛选列表
+        StatusFilters.Add(new StatusFilterItem { Status = null, Name = "全部" });
+        foreach (PublishTaskStatus status in Enum.GetValues<PublishTaskStatus>())
+        {
+            StatusFilters.Add(new StatusFilterItem { Status = status, Name = status.GetDisplayName() });
+        }
     }
 
     [RelayCommand]
@@ -53,13 +79,11 @@ public partial class PublishTaskViewModel : ViewModelBase
             IsLoading = true;
             ClearError();
 
-            // 加载任务列表
-            var tasks = await _publishService.GetAllTasksAsync();
-            Tasks.Clear();
-            foreach (var task in tasks)
-            {
-                Tasks.Add(task);
-            }
+            // 加载所有任务
+            _allTasks = (await _publishService.GetAllTasksAsync()).ToList();
+            
+            // 应用筛选
+            ApplyFilter();
 
             // 加载统计数据
             var counts = await _statisticsService.GetTaskStatusCountsAsync();
@@ -75,6 +99,48 @@ public partial class PublishTaskViewModel : ViewModelBase
         finally
         {
             IsLoading = false;
+        }
+    }
+
+    private void ApplyFilter()
+    {
+        var filtered = _allTasks.AsEnumerable();
+
+        // 状态筛选
+        if (FilterStatus.HasValue)
+        {
+            filtered = filtered.Where(t => t.Status == FilterStatus.Value);
+        }
+
+        // 关键词搜索
+        if (!string.IsNullOrWhiteSpace(SearchKeyword))
+        {
+            var keyword = SearchKeyword.ToLower();
+            filtered = filtered.Where(t => 
+                t.VideoTitle.ToLower().Contains(keyword) ||
+                t.PlatformDisplayName.ToLower().Contains(keyword));
+        }
+
+        Tasks.Clear();
+        foreach (var task in filtered)
+        {
+            Tasks.Add(task);
+        }
+    }
+
+    [RelayCommand]
+    private void Search()
+    {
+        ApplyFilter();
+    }
+
+    [RelayCommand]
+    private void FilterByStatus(object? parameter)
+    {
+        if (parameter is StatusFilterItem item)
+        {
+            FilterStatus = item.Status;
+            ApplyFilter();
         }
     }
 
@@ -119,7 +185,122 @@ public partial class PublishTaskViewModel : ViewModelBase
     {
         if (parameter is not PublishTask task) return;
         SelectedTask = task;
-        // 可以在这里弹出详情对话框
-        _snackbarService.Show("任务详情", $"视频: {task.VideoTitle}\n平台: {task.PlatformDisplayName}\n状态: {task.StatusDisplayName}", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(5));
     }
+
+    #region 删除任务
+
+    [RelayCommand]
+    private async Task DeleteTaskAsync(object? parameter)
+    {
+        if (parameter is not PublishTask task) return;
+
+        // 只能删除已完成、失败或已取消的任务
+        if (!task.Status.IsTerminal())
+        {
+            _snackbarService.Show("提示", "只能删除已完成、失败或已取消的任务", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+            return;
+        }
+
+        try
+        {
+            await _publishService.DeleteTaskAsync(task.Id);
+            Tasks.Remove(task);
+            _allTasks.Remove(task);
+            _snackbarService.Show("成功", "任务已删除", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
+        }
+    }
+
+    #endregion
+
+    #region 批量操作
+
+    [RelayCommand]
+    private void ToggleMultiSelectMode()
+    {
+        IsMultiSelectMode = !IsMultiSelectMode;
+        if (!IsMultiSelectMode)
+        {
+            SelectedTasks.Clear();
+        }
+    }
+
+    [RelayCommand]
+    private async Task BatchDeleteTasksAsync()
+    {
+        if (SelectedTasks.Count == 0)
+        {
+            _snackbarService.Show("提示", "请先选择要删除的任务", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+            return;
+        }
+
+        var deletableTasks = SelectedTasks.Where(t => t.Status.IsTerminal()).ToList();
+        if (deletableTasks.Count == 0)
+        {
+            _snackbarService.Show("提示", "只能删除已完成、失败或已取消的任务", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+            return;
+        }
+
+        try
+        {
+            foreach (var task in deletableTasks)
+            {
+                await _publishService.DeleteTaskAsync(task.Id);
+                Tasks.Remove(task);
+                _allTasks.Remove(task);
+            }
+            SelectedTasks.Clear();
+            _snackbarService.Show("成功", $"已删除 {deletableTasks.Count} 个任务", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
+        }
+    }
+
+    [RelayCommand]
+    private async Task BatchRetryTasksAsync()
+    {
+        if (SelectedTasks.Count == 0)
+        {
+            _snackbarService.Show("提示", "请先选择要重试的任务", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+            return;
+        }
+
+        var retryableTasks = SelectedTasks.Where(t => t.CanRetry).ToList();
+        if (retryableTasks.Count == 0)
+        {
+            _snackbarService.Show("提示", "没有可重试的任务", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+            return;
+        }
+
+        try
+        {
+            foreach (var task in retryableTasks)
+            {
+                await _publishService.RetryTaskAsync(task.Id);
+            }
+            SelectedTasks.Clear();
+            await LoadDataAsync();
+            _snackbarService.Show("成功", $"已将 {retryableTasks.Count} 个任务加入重试队列", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
+        }
+    }
+
+    #endregion
+}
+
+/// <summary>
+/// 状态筛选项
+/// </summary>
+public class StatusFilterItem
+{
+    public PublishTaskStatus? Status { get; set; }
+    public string Name { get; set; } = string.Empty;
 }
