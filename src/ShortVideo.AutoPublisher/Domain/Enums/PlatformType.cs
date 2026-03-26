@@ -61,4 +61,17 @@ public static class PlatformTypeExtensions
         PlatformType.Toutiao => "https://mp.toutiao.com/profile_v4/graphic/publish",
         _ => string.Empty
     };
+
+    /// <summary>
+    /// 获取平台登录页URL
+    /// </summary>
+    public static string GetLoginUrl(this PlatformType platform) => platform switch
+    {
+        PlatformType.Douyin => "https://creator.douyin.com/",
+        PlatformType.Xiaohongshu => "https://creator.xiaohongshu.com/login",
+        PlatformType.Baijiahao => "https://baijiahao.baidu.com/",
+        PlatformType.WeixinChannel => "https://channels.weixin.qq.com/login",
+        PlatformType.Toutiao => "https://mp.toutiao.com/",
+        _ => string.Empty
+    };
 }

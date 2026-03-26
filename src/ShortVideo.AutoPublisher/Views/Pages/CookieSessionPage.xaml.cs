@@ -68,9 +68,52 @@ public partial class CookieSessionPage : Page
         namePanel.Children.Add(nameTextBox);
         panel.Children.Add(namePanel);
 
-        // Cookie数据
+        // Cookie数据区域
         var cookiePanel = new StackPanel { Margin = new Thickness(0, 0, 0, 16) };
-        cookiePanel.Children.Add(new System.Windows.Controls.TextBlock { Text = "Cookie数据", Margin = new Thickness(0, 0, 0, 8) });
+        
+        // Cookie标题和浏览器登录按钮在同一行
+        var cookieHeaderPanel = new Grid { Margin = new Thickness(0, 0, 0, 8) };
+        cookieHeaderPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        cookieHeaderPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        
+        var cookieLabel = new System.Windows.Controls.TextBlock { Text = "Cookie数据", VerticalAlignment = VerticalAlignment.Center };
+        Grid.SetColumn(cookieLabel, 0);
+        cookieHeaderPanel.Children.Add(cookieLabel);
+        
+        // 浏览器登录按钮
+        var browserLoginBtn = new Wpf.Ui.Controls.Button
+        {
+            Content = "浏览器登录获取",
+            Appearance = Wpf.Ui.Controls.ControlAppearance.Info,
+            Icon = new Wpf.Ui.Controls.SymbolIcon { Symbol = Wpf.Ui.Controls.SymbolRegular.Globe24 }
+        };
+        browserLoginBtn.SetBinding(Wpf.Ui.Controls.Button.IsEnabledProperty, new System.Windows.Data.Binding("IsBrowserLoginInProgress") 
+        { 
+            Source = ViewModel, 
+            Converter = new InverseBooleanConverter() 
+        });
+        browserLoginBtn.Click += async (s, e) => await ViewModel.LoginViaBrowserCommand.ExecuteAsync(null);
+        Grid.SetColumn(browserLoginBtn, 1);
+        cookieHeaderPanel.Children.Add(browserLoginBtn);
+        
+        cookiePanel.Children.Add(cookieHeaderPanel);
+        
+        // 登录状态提示
+        var statusTextBlock = new System.Windows.Controls.TextBlock
+        {
+            Foreground = System.Windows.Media.Brushes.DeepSkyBlue,
+            FontSize = 12,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 8)
+        };
+        statusTextBlock.SetBinding(System.Windows.Controls.TextBlock.TextProperty, new System.Windows.Data.Binding("BrowserLoginStatus") { Source = ViewModel });
+        statusTextBlock.SetBinding(System.Windows.Controls.TextBlock.VisibilityProperty, new System.Windows.Data.Binding("BrowserLoginStatus")
+        {
+            Source = ViewModel,
+            Converter = new StringToVisibilityConverter()
+        });
+        cookiePanel.Children.Add(statusTextBlock);
+
         var cookieTextBox = new System.Windows.Controls.TextBox
         {
             Height = 120,
@@ -88,5 +131,37 @@ public partial class CookieSessionPage : Page
         panel.Children.Add(defaultCheckBox);
 
         return panel;
+    }
+}
+
+/// <summary>
+/// 布尔反转转换器
+/// </summary>
+public class InverseBooleanConverter : System.Windows.Data.IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        return value is bool b ? !b : true;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        return value is bool b ? !b : false;
+    }
+}
+
+/// <summary>
+/// 字符串到可见性转换器
+/// </summary>
+public class StringToVisibilityConverter : System.Windows.Data.IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        return string.IsNullOrEmpty(value as string) ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotImplementedException();
     }
 }

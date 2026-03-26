@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Playwright;
 using ShortVideo.AutoPublisher.Domain.Entities;
 using ShortVideo.AutoPublisher.Domain.Enums;
+using ShortVideo.AutoPublisher.OpenClaw.Browser;
 using ShortVideo.AutoPublisher.Services;
 using Wpf.Ui;
 
@@ -16,6 +18,7 @@ public partial class CookieSessionViewModel : ViewModelBase
     private readonly CookieSessionService _sessionService;
     private readonly ISnackbarService _snackbarService;
     private readonly IContentDialogService _dialogService;
+    private readonly BrowserManager _browserManager;
 
     [ObservableProperty]
     private ObservableCollection<CookieSession> _sessions = [];
@@ -47,6 +50,13 @@ public partial class CookieSessionViewModel : ViewModelBase
     [ObservableProperty]
     private bool _newIsDefault = true;
 
+    // 浏览器登录状态
+    [ObservableProperty]
+    private bool _isBrowserLoginInProgress;
+
+    [ObservableProperty]
+    private string _browserLoginStatus = string.Empty;
+
     // 对话框显示控制
     [ObservableProperty]
     private bool _isAddDialogOpen = false;
@@ -56,11 +66,13 @@ public partial class CookieSessionViewModel : ViewModelBase
     public CookieSessionViewModel(
         CookieSessionService sessionService,
         ISnackbarService snackbarService,
-        IContentDialogService dialogService)
+        IContentDialogService dialogService,
+        BrowserManager browserManager)
     {
         _sessionService = sessionService;
         _snackbarService = snackbarService;
         _dialogService = dialogService;
+        _browserManager = browserManager;
     }
 
     partial void OnSelectedPlatformFilterChanged(string value)
@@ -278,6 +290,122 @@ public partial class CookieSessionViewModel : ViewModelBase
         finally
         {
             IsLoading = false;
+        }
+    }
+
+    /// <summary>
+    /// 通过浏览器登录获取Cookie
+    /// </summary>
+    [RelayCommand]
+    private async Task LoginViaBrowserAsync()
+    {
+        IPlaywright? playwright = null;
+        IBrowser? browser = null;
+        IBrowserContext? context = null;
+
+        try
+        {
+            IsBrowserLoginInProgress = true;
+            BrowserLoginStatus = $"正在启动浏览器...";
+
+            var loginUrl = NewPlatform.GetLoginUrl();
+            var platformName = NewPlatform.GetDisplayName();
+
+            // 创建一个新的非无头浏览器实例（用户需要看到浏览器界面进行登录）
+            playwright = await Playwright.CreateAsync();
+            browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            {
+                Headless = false,  // 显示浏览器界面
+                Args =
+                [
+                    "--disable-blink-features=AutomationControlled",
+                    "--disable-infobars",
+                    "--no-sandbox",
+                    "--start-maximized"
+                ]
+            });
+
+            context = await browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                ViewportSize = new ViewportSize { Width = 1280, Height = 900 },
+                Locale = "zh-CN",
+                TimezoneId = "Asia/Shanghai",
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            });
+
+            // 注入反检测脚本
+            await context.AddInitScriptAsync(@"
+                Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+                Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+                Object.defineProperty(navigator, 'languages', { get: () => ['zh-CN', 'zh', 'en'] });
+                window.chrome = { runtime: {} };
+            ");
+
+            var page = await context.NewPageAsync();
+
+            BrowserLoginStatus = $"正在打开{platformName}登录页面...";
+            await page.GotoAsync(loginUrl, new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
+
+            BrowserLoginStatus = $"请在浏览器中完成{platformName}登录，登录成功后关闭浏览器窗口";
+
+            // 等待浏览器关闭（用户登录完成后关闭窗口）
+            var closedTask = new TaskCompletionSource<bool>();
+            browser.Disconnected += (_, _) => closedTask.TrySetResult(true);
+
+            // 定期检查浏览器是否还在运行
+            using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+            var checkTask = Task.Run(async () =>
+            {
+                while (!cts.Token.IsCancellationRequested && browser.IsConnected)
+                {
+                    await Task.Delay(500, cts.Token);
+                }
+            }, cts.Token);
+
+            await Task.WhenAny(closedTask.Task, checkTask);
+            cts.Cancel();
+
+            // 在浏览器关闭前获取Cookie
+            if (context != null)
+            {
+                BrowserLoginStatus = "正在获取Cookie...";
+                var cookies = await context.CookiesAsync();
+
+                if (cookies.Count > 0)
+                {
+                    var cookieJson = System.Text.Json.JsonSerializer.Serialize(cookies);
+                    NewCookieData = cookieJson;
+                    BrowserLoginStatus = $"已成功获取 {cookies.Count} 个 Cookie";
+                    _snackbarService.Show("成功", $"已成功获取 {cookies.Count} 个 Cookie", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
+                }
+                else
+                {
+                    BrowserLoginStatus = "未获取到Cookie，请确认已登录";
+                    _snackbarService.Show("提示", "未获取到Cookie，请确认已成功登录", Wpf.Ui.Controls.ControlAppearance.Caution, null, TimeSpan.FromSeconds(3));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            BrowserLoginStatus = $"获取Cookie失败: {ex.Message}";
+            _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
+        }
+        finally
+        {
+            // 确保清理资源
+            if (context != null)
+            {
+                try { await context.CloseAsync(); } catch { }
+            }
+            if (browser != null)
+            {
+                try { await browser.CloseAsync(); } catch { }
+            }
+            playwright?.Dispose();
+
+            IsBrowserLoginInProgress = false;
+            await Task.Delay(2000);
+            BrowserLoginStatus = string.Empty;
         }
     }
 }
