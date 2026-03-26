@@ -15,7 +15,7 @@
 
     <ScrollViewer x:Name="MainScrollViewer"
                   VerticalScrollBarVisibility="Auto"
-                  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                  PreviewMouseWheel="MainScrollViewer_PreviewMouseWheel">
         <StackPanel Margin="24">
             <!-- 页面标题 -->
             <StackPanel Margin="0,0,0,24">
