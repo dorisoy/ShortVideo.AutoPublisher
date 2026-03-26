@@ -76,7 +76,7 @@
                 <DataGridTextColumn Width="150"
                                     Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=yyyy-MM-dd HH:mm}"
                                     Header="创建时间" />
-                <DataGridTemplateColumn Width="280"
+                <DataGridTemplateColumn Width="350"
                                         Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

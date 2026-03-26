@@ -51,6 +51,7 @@ public class BrowserSettings
 /// </summary>
 public class DownloadSettings
 {
+    public string DownloadDirectory { get; set; } = "Downloads";
     public long MaxFileSizeBytes { get; set; } = 1073741824; // 1GB
     public int BufferSize { get; set; } = 81920;
     public bool EnableResume { get; set; } = true;

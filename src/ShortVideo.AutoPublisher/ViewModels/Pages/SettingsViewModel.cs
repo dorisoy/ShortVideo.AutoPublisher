@@ -1,6 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using ShortVideo.AutoPublisher.Core.Configuration;
+using System.IO;
+using System.Reflection;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -14,79 +17,144 @@ public partial class SettingsViewModel : ViewModelBase
     private readonly AppSettings _settings;
     private readonly ISnackbarService _snackbarService;
 
-    // 网络设置
-    [ObservableProperty]
-    private int _connectionTimeout;
+    #region 网络设置
 
     [ObservableProperty]
-    private int _maxRetries;
+    private int _networkTimeoutSeconds = 30;
 
     [ObservableProperty]
-    private int _retryDelay;
-
-    // 浏览器设置
-    [ObservableProperty]
-    private bool _headless;
+    private int _retryCount = 3;
 
     [ObservableProperty]
-    private int _pageLoadTimeout;
+    private int _retryDelaySeconds = 1;
 
     [ObservableProperty]
-    private int _actionTimeout;
+    private string _proxyAddress = string.Empty;
 
-    // AI代理设置
-    [ObservableProperty]
-    private bool _enableAiAgent;
+    #endregion
 
-    [ObservableProperty]
-    private int _maxConcurrentTasks;
+    #region 浏览器设置
 
     [ObservableProperty]
-    private int _taskQueueSize;
+    private string _browserType = "Chromium";
 
     [ObservableProperty]
-    private bool _enableAutoRetry;
+    private List<string> _browserTypes = ["Chromium", "Firefox", "WebKit"];
 
     [ObservableProperty]
-    private int _agentRetryCount;
+    private bool _isHeadless;
 
     [ObservableProperty]
-    private int _agentRetryDelay;
+    private string _userDataDir = string.Empty;
 
     [ObservableProperty]
-    private bool _enableAntiDetection;
+    private int _pageLoadTimeoutSeconds = 60;
 
-    // 主题
+    [ObservableProperty]
+    private int _actionTimeoutSeconds = 30;
+
+    [ObservableProperty]
+    private int _maxConcurrentBrowsers = 1;
+
+    #endregion
+
+    #region AI代理设置
+
+    [ObservableProperty]
+    private bool _isAiAgentEnabled = true;
+
+    [ObservableProperty]
+    private int _taskTimeoutMinutes = 10;
+
+    [ObservableProperty]
+    private int _agentRetryCount = 3;
+
+    [ObservableProperty]
+    private int _maxConcurrentTasks = 1;
+
+    [ObservableProperty]
+    private bool _enableAntiDetection = true;
+
+    #endregion
+
+    #region 存储设置
+
+    [ObservableProperty]
+    private string _databasePath = string.Empty;
+
+    [ObservableProperty]
+    private string _downloadPath = string.Empty;
+
+    #endregion
+
+    #region 日志设置
+
+    [ObservableProperty]
+    private string _logLevel = "Information";
+
+    [ObservableProperty]
+    private List<string> _logLevels = ["Verbose", "Debug", "Information", "Warning", "Error", "Fatal"];
+
+    [ObservableProperty]
+    private string _logPath = string.Empty;
+
+    [ObservableProperty]
+    private int _logRetainedDays = 30;
+
+    #endregion
+
+    #region 关于
+
+    [ObservableProperty]
+    private string _appVersion = string.Empty;
+
+    #endregion
+
+    #region 主题
+
     [ObservableProperty]
     private ApplicationTheme _currentTheme = ApplicationTheme.Dark;
+
+    #endregion
 
     public SettingsViewModel(AppSettings settings, ISnackbarService snackbarService)
     {
         _settings = settings;
         _snackbarService = snackbarService;
-        LoadSettings();
     }
 
     public void LoadSettings()
     {
         // 网络设置
-        ConnectionTimeout = _settings.Network.ConnectionTimeoutSeconds;
-        MaxRetries = _settings.Network.MaxRetries;
-        RetryDelay = _settings.Network.InitialRetryDelaySeconds;
+        NetworkTimeoutSeconds = _settings.Network.ConnectionTimeoutSeconds;
+        RetryCount = _settings.Network.MaxRetries;
+        RetryDelaySeconds = _settings.Network.InitialRetryDelaySeconds;
 
         // 浏览器设置
-        Headless = _settings.Browser.Headless;
-        PageLoadTimeout = _settings.Browser.PageLoadTimeoutSeconds;
-        ActionTimeout = _settings.Browser.ActionTimeoutSeconds;
+        IsHeadless = _settings.Browser.Headless;
+        PageLoadTimeoutSeconds = _settings.Browser.PageLoadTimeoutSeconds;
+        ActionTimeoutSeconds = _settings.Browser.ActionTimeoutSeconds;
+        MaxConcurrentBrowsers = 1;
 
         // AI代理设置
-        EnableAiAgent = _settings.Agent.EnableAiAgent;
+        IsAiAgentEnabled = _settings.Agent.EnableAiAgent;
         MaxConcurrentTasks = _settings.Agent.MaxConcurrentTasks;
-        TaskQueueSize = _settings.Agent.TaskQueueSize;
-        EnableAutoRetry = _settings.Agent.EnableAutoRetry;
         AgentRetryCount = _settings.Agent.RetryCount;
-        AgentRetryDelay = _settings.Agent.RetryDelaySeconds;
+        TaskTimeoutMinutes = 10;
         EnableAntiDetection = _settings.Agent.EnableAntiDetection;
+
+        // 存储设置
+        DatabasePath = Path.GetFullPath(_settings.Database.FilePath);
+        DownloadPath = _settings.Download.DownloadDirectory;
+
+        // 日志设置
+        LogLevel = _settings.Log.MinimumLevel;
+        LogPath = Path.GetFullPath(_settings.Log.LogDirectory);
+        LogRetainedDays = _settings.Log.RetainedFileDays;
+
+        // 版本信息
+        var version = Assembly.GetExecutingAssembly().GetName().Version;
+        AppVersion = $"版本 {version?.Major ?? 3}.{version?.Minor ?? 0}.{version?.Build ?? 1}";
 
         // 主题
         CurrentTheme = ApplicationThemeManager.GetAppTheme();
@@ -98,29 +166,88 @@ public partial class SettingsViewModel : ViewModelBase
         try
         {
             // 网络设置
-            _settings.Network.ConnectionTimeoutSeconds = ConnectionTimeout;
-            _settings.Network.MaxRetries = MaxRetries;
-            _settings.Network.InitialRetryDelaySeconds = RetryDelay;
+            _settings.Network.ConnectionTimeoutSeconds = NetworkTimeoutSeconds;
+            _settings.Network.MaxRetries = RetryCount;
+            _settings.Network.InitialRetryDelaySeconds = RetryDelaySeconds;
 
             // 浏览器设置
-            _settings.Browser.Headless = Headless;
-            _settings.Browser.PageLoadTimeoutSeconds = PageLoadTimeout;
-            _settings.Browser.ActionTimeoutSeconds = ActionTimeout;
+            _settings.Browser.Headless = IsHeadless;
+            _settings.Browser.PageLoadTimeoutSeconds = PageLoadTimeoutSeconds;
+            _settings.Browser.ActionTimeoutSeconds = ActionTimeoutSeconds;
 
             // AI代理设置
-            _settings.Agent.EnableAiAgent = EnableAiAgent;
+            _settings.Agent.EnableAiAgent = IsAiAgentEnabled;
             _settings.Agent.MaxConcurrentTasks = MaxConcurrentTasks;
-            _settings.Agent.TaskQueueSize = TaskQueueSize;
-            _settings.Agent.EnableAutoRetry = EnableAutoRetry;
             _settings.Agent.RetryCount = AgentRetryCount;
-            _settings.Agent.RetryDelaySeconds = AgentRetryDelay;
             _settings.Agent.EnableAntiDetection = EnableAntiDetection;
+
+            // 日志设置
+            _settings.Log.MinimumLevel = LogLevel;
+            _settings.Log.RetainedFileDays = LogRetainedDays;
 
             _snackbarService.Show("成功", "设置已保存（重启后生效）", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
         }
         catch (Exception ex)
         {
             _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
+        }
+    }
+
+    [RelayCommand]
+    private void ResetToDefault()
+    {
+        // 网络设置
+        NetworkTimeoutSeconds = 30;
+        RetryCount = 3;
+        RetryDelaySeconds = 1;
+        ProxyAddress = string.Empty;
+
+        // 浏览器设置
+        BrowserType = "Chromium";
+        IsHeadless = false;
+        PageLoadTimeoutSeconds = 60;
+        ActionTimeoutSeconds = 30;
+        MaxConcurrentBrowsers = 1;
+
+        // AI代理设置
+        IsAiAgentEnabled = true;
+        TaskTimeoutMinutes = 10;
+        AgentRetryCount = 3;
+        MaxConcurrentTasks = 1;
+        EnableAntiDetection = true;
+
+        // 日志设置
+        LogLevel = "Information";
+        LogRetainedDays = 30;
+
+        _snackbarService.Show("提示", "已重置为默认设置", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(3));
+    }
+
+    [RelayCommand]
+    private void BrowseUserDataDir()
+    {
+        var dialog = new OpenFolderDialog
+        {
+            Title = "选择用户数据目录"
+        };
+
+        if (dialog.ShowDialog() == true)
+        {
+            UserDataDir = dialog.FolderName;
+        }
+    }
+
+    [RelayCommand]
+    private void BrowseDownloadPath()
+    {
+        var dialog = new OpenFolderDialog
+        {
+            Title = "选择下载目录"
+        };
+
+        if (dialog.ShowDialog() == true)
+        {
+            DownloadPath = dialog.FolderName;
         }
     }
 

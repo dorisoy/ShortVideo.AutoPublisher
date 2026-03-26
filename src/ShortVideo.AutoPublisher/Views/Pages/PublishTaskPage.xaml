@@ -21,11 +21,18 @@
                        Text="查看和管理视频发布任务，监控发布进度" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
-                    Margin="0,0,0,24"
-                    Orientation="Horizontal">
-            <ui:CardControl Width="160"
-                            Margin="0,0,12,0">
+        <Grid Grid.Row="1"
+                    Margin="0,0,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:CardControl 
+                            Margin="0,0,12,0"
+                            Grid.Column="0">
                 <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Clock24"
                                    FontSize="28"
@@ -34,13 +41,15 @@
                 <ui:CardControl.Header>
                     <TextBlock FontSize="28"
                                FontWeight="Bold"
-                               Text="{Binding PendingCount}" />
+                               Text="{Binding PendingCount}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
                 <TextBlock Text="等待中"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="160"
-                            Margin="0,0,12,0">
+            <ui:CardControl 
+                            Margin="0,0,12,0"
+                            Grid.Column="1">
                 <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Play24"
                                    FontSize="28"
@@ -50,13 +59,15 @@
                     <TextBlock FontSize="28"
                                FontWeight="Bold"
                                Foreground="DeepSkyBlue"
-                               Text="{Binding RunningCount}" />
+                               Text="{Binding RunningCount}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
                 <TextBlock Text="执行中"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="160"
-                            Margin="0,0,12,0">
+            <ui:CardControl 
+                            Margin="0,0,12,0"
+                            Grid.Column="2">
                 <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Checkmark24"
                                    FontSize="28"
@@ -66,13 +77,15 @@
                     <TextBlock FontSize="28"
                                FontWeight="Bold"
                                Foreground="LimeGreen"
-                               Text="{Binding CompletedCount}" />
+                               Text="{Binding CompletedCount}"
+                               HorizontalAlignment="Center" />
                 </ui:CardControl.Header>
                 <TextBlock Text="已完成"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
-            <ui:CardControl Width="160"
-                            Margin="0,0,12,0">
+            <ui:CardControl 
+                            Margin="0,0,12,0"
+                            Grid.Column="3">
                 <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Dismiss24"
                                    FontSize="28"
@@ -82,17 +95,20 @@
                     <TextBlock FontSize="28"
                                FontWeight="Bold"
                                Foreground="Red"
-                               Text="{Binding FailedCount}" />
+                               Text="{Binding FailedCount}" 
+                               HorizontalAlignment="Center"/>
                 </ui:CardControl.Header>
                 <TextBlock Text="失败"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             </ui:CardControl>
             <ui:Button Appearance="Primary"
+                       Grid.Column="4"
                        Icon="{ui:SymbolIcon ArrowSync24}"
                        Command="{Binding LoadDataCommand}"
                        Content="刷新"
-                       VerticalAlignment="Center" />
-        </StackPanel>
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch" />
+        </Grid>
 
         <DataGrid Grid.Row="2"
                   AutoGenerateColumns="False"
