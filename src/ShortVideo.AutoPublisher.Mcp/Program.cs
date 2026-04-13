@@ -1,0 +1,54 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using ShortVideo.AutoPublisher.Core.Configuration;
+using ShortVideo.AutoPublisher.Infrastructure.Data;
+using ShortVideo.AutoPublisher.Infrastructure.Data.Repositories;
+using ShortVideo.AutoPublisher.OpenClaw.Abstractions;
+using ShortVideo.AutoPublisher.OpenClaw.Agents;
+using ShortVideo.AutoPublisher.OpenClaw.Browser;
+using ShortVideo.AutoPublisher.OpenClaw.TaskScheduler;
+using ShortVideo.AutoPublisher.Services;
+
+namespace ShortVideo.AutoPublisher.Mcp;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        var builder = Host.CreateApplicationBuilder(args);
+
+        // 配置
+        builder.Services.AddSingleton(new AppSettings());
+
+        // 数据库
+        builder.Services.AddSingleton<AppDbContext>();
+        builder.Services.AddSingleton<DatabaseInitializer>();
+        builder.Services.AddSingleton<VideoContentRepository>();
+        builder.Services.AddSingleton<CookieSessionRepository>();
+        builder.Services.AddSingleton<PublishTaskRepository>();
+
+        // 服务
+        builder.Services.AddSingleton<VideoContentService>();
+        builder.Services.AddSingleton<CookieSessionService>();
+        builder.Services.AddSingleton<PublishService>();
+        builder.Services.AddSingleton<StatisticsService>();
+
+        // OpenClaw
+        builder.Services.AddSingleton<BrowserManager>();
+        builder.Services.AddSingleton<IAgentFactory, AgentFactory>();
+        builder.Services.AddSingleton<PublishTaskScheduler>();
+
+        // 日志
+        builder.Logging.AddConsole();
+        builder.Logging.SetMinimumLevel(LogLevel.Information);
+
+        var host = builder.Build();
+
+        // 初始化数据库
+        var dbInitializer = host.Services.GetRequiredService<DatabaseInitializer>();
+        await dbInitializer.InitializeAsync();
+
+        await host.RunAsync();
+    }
+}
