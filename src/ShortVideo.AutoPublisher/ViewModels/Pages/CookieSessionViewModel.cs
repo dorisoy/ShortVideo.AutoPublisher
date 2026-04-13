@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Playwright;
@@ -294,6 +295,21 @@ public partial class CookieSessionViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// 在 UI 线程上更新属性，确保 WPF 绑定能正确接收变更通知
+    /// </summary>
+    private void DispatchToUI(Action action)
+    {
+        if (Application.Current?.Dispatcher is { } dispatcher && !dispatcher.CheckAccess())
+        {
+            dispatcher.Invoke(action);
+        }
+        else
+        {
+            action();
+        }
+    }
+
+    /// <summary>
     /// 通过浏览器登录获取Cookie
     /// </summary>
     [RelayCommand]
@@ -305,8 +321,11 @@ public partial class CookieSessionViewModel : ViewModelBase
 
         try
         {
-            IsBrowserLoginInProgress = true;
-            BrowserLoginStatus = $"正在启动浏览器...";
+            DispatchToUI(() =>
+            {
+                IsBrowserLoginInProgress = true;
+                BrowserLoginStatus = "正在启动浏览器...";
+            });
 
             var loginUrl = NewPlatform.GetLoginUrl();
             var platformName = NewPlatform.GetDisplayName();
@@ -315,7 +334,7 @@ public partial class CookieSessionViewModel : ViewModelBase
             playwright = await Playwright.CreateAsync();
             browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = false,  // 显示浏览器界面
+                Headless = false,
                 Args =
                 [
                     "--disable-blink-features=AutomationControlled",
@@ -343,56 +362,77 @@ public partial class CookieSessionViewModel : ViewModelBase
 
             var page = await context.NewPageAsync();
 
-            BrowserLoginStatus = $"正在打开{platformName}登录页面...";
+            DispatchToUI(() => BrowserLoginStatus = $"正在打开{platformName}登录页面...");
             await page.GotoAsync(loginUrl, new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
 
-            BrowserLoginStatus = $"请在浏览器中完成{platformName}登录，登录成功后关闭浏览器窗口";
+            DispatchToUI(() => BrowserLoginStatus = $"请在浏览器中完成{platformName}登录，登录成功后关闭浏览器窗口");
 
-            // 等待浏览器关闭（用户登录完成后关闭窗口）
-            var closedTask = new TaskCompletionSource<bool>();
-            browser.Disconnected += (_, _) => closedTask.TrySetResult(true);
+            // 在浏览器运行期间持续轮询保存最新 Cookie
+            // 浏览器关闭后连接断开，此时无法再获取 Cookie，所以必须提前保存
+            string lastCookieJson = string.Empty;
+            int lastCookieCount = 0;
 
-            // 定期检查浏览器是否还在运行
+            // 监听浏览器断开连接事件，使用 TaskCompletionSource 来等待
+            var disconnectedTcs = new TaskCompletionSource<bool>();
+            browser.Disconnected += (_, _) => disconnectedTcs.TrySetResult(true);
+
             using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
-            var checkTask = Task.Run(async () =>
+
+            try
             {
                 while (!cts.Token.IsCancellationRequested && browser.IsConnected)
                 {
-                    await Task.Delay(500, cts.Token);
+                    try
+                    {
+                        var cookies = await context.CookiesAsync();
+                        if (cookies.Count > 0)
+                        {
+                            lastCookieJson = System.Text.Json.JsonSerializer.Serialize(cookies);
+                            lastCookieCount = cookies.Count;
+                        }
+                    }
+                    catch
+                    {
+                        // 浏览器可能正在关闭，忽略异常
+                        break;
+                    }
+
+                    // 等待 1 秒或浏览器断开，以较快者为准
+                    var delayTask = Task.Delay(1000, cts.Token);
+                    await Task.WhenAny(delayTask, disconnectedTcs.Task);
+
+                    if (disconnectedTcs.Task.IsCompleted)
+                        break;
                 }
-            }, cts.Token);
-
-            await Task.WhenAny(closedTask.Task, checkTask);
-            cts.Cancel();
-
-            // 在浏览器关闭前获取Cookie
-            if (context != null)
+            }
+            catch (OperationCanceledException)
             {
-                BrowserLoginStatus = "正在获取Cookie...";
-                var cookies = await context.CookiesAsync();
+                // 超时，正常退出
+            }
 
-                if (cookies.Count > 0)
+            // 使用最后成功保存的 Cookie，通过 Dispatcher 回到 UI 线程更新属性
+            if (lastCookieCount > 0)
+            {
+                DispatchToUI(() =>
                 {
-                    var cookieJson = System.Text.Json.JsonSerializer.Serialize(cookies);
-                    NewCookieData = cookieJson;
-                    BrowserLoginStatus = $"已成功获取 {cookies.Count} 个 Cookie";
-                    _snackbarService.Show("成功", $"已成功获取 {cookies.Count} 个 Cookie", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
-                }
-                else
-                {
-                    BrowserLoginStatus = "未获取到Cookie，请确认已登录";
-                    _snackbarService.Show("提示", "未获取到Cookie，请确认已成功登录", Wpf.Ui.Controls.ControlAppearance.Caution, null, TimeSpan.FromSeconds(3));
-                }
+                    NewCookieData = lastCookieJson;
+                    BrowserLoginStatus = $"已成功获取 {lastCookieCount} 个 Cookie";
+                });
+                _snackbarService.Show("成功", $"已成功获取 {lastCookieCount} 个 Cookie", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(3));
+            }
+            else
+            {
+                DispatchToUI(() => BrowserLoginStatus = "未获取到Cookie，请确认已登录");
+                _snackbarService.Show("提示", "未获取到Cookie，请确认已成功登录", Wpf.Ui.Controls.ControlAppearance.Caution, null, TimeSpan.FromSeconds(3));
             }
         }
         catch (Exception ex)
         {
-            BrowserLoginStatus = $"获取Cookie失败: {ex.Message}";
+            DispatchToUI(() => BrowserLoginStatus = $"获取Cookie失败: {ex.Message}");
             _snackbarService.Show("错误", ex.Message, Wpf.Ui.Controls.ControlAppearance.Danger, null, TimeSpan.FromSeconds(3));
         }
         finally
         {
-            // 确保清理资源
             if (context != null)
             {
                 try { await context.CloseAsync(); } catch { }
@@ -403,9 +443,12 @@ public partial class CookieSessionViewModel : ViewModelBase
             }
             playwright?.Dispose();
 
-            IsBrowserLoginInProgress = false;
+            DispatchToUI(() =>
+            {
+                IsBrowserLoginInProgress = false;
+            });
             await Task.Delay(2000);
-            BrowserLoginStatus = string.Empty;
+            DispatchToUI(() => BrowserLoginStatus = string.Empty);
         }
     }
 }

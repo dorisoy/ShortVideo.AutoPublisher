@@ -38,9 +38,6 @@
 <img src="Screen/1%20(2).png"/>
 
 <img src="Screen/1%20(3).png"/>
-
-<img src="Screen/1%20(4).png"/>
-
 <img src="Screen/1%20(5).png"/>
 
 <img src="Screen/1%20(6).png"/>

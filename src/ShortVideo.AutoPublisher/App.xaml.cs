@@ -115,6 +115,11 @@ public partial class App : Application
         var dbInitializer = GetService<DatabaseInitializer>();
         await dbInitializer.InitializeAsync();
 
+        // 自动启动发布任务调度器
+        var publishService = GetService<PublishService>();
+        publishService.StartScheduler();
+        Log.Information("发布任务调度器已自动启动");
+
         // 显示主窗口
         var mainWindow = GetService<MainWindow>();
         mainWindow.Show();
@@ -125,6 +130,30 @@ public partial class App : Application
     /// </summary>
     private async void OnExit(object sender, ExitEventArgs e)
     {
+        // 停止发布任务调度器
+        try
+        {
+            var publishService = GetService<PublishService>();
+            await publishService.StopSchedulerAsync();
+            Log.Information("发布任务调度器已停止");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "停止调度器失败");
+        }
+
+        // 释放浏览器资源
+        try
+        {
+            var browserManager = GetService<BrowserManager>();
+            await browserManager.DisposeAsync();
+            Log.Information("浏览器资源已释放");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "释放浏览器资源失败");
+        }
+
         await _host.StopAsync();
         _host.Dispose();
         Log.CloseAndFlush();

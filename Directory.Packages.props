@@ -1,55 +1,43 @@
 <Project>
   <ItemGroup>
     <!-- MVVM Framework -->
-    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <!-- Database -->
-    <PackageVersion Include="Dapper" Version="2.1.35" />
-    <PackageVersion Include="Microsoft.Data.Sqlite" Version="8.0.0" />
-    <PackageVersion Include="System.Data.SQLite" Version="1.0.118" />
-    
+    <PackageVersion Include="Dapper" Version="2.1.72" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.5" />
+    <PackageVersion Include="System.Data.SQLite" Version="2.0.3" />
     <!-- Microsoft Extensions -->
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.5" />
     <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.2151.40" />
-    
     <!-- CLI -->
-    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-    <PackageVersion Include="Spectre.Console" Version="0.49.1" />
-    
+    <PackageVersion Include="System.CommandLine" Version="2.0.5" />
+    <PackageVersion Include="Spectre.Console" Version="0.55.0" />
     <!-- MCP -->
-    <PackageVersion Include="ModelContextProtocol" Version="0.1.0-preview.4" />
-    
+    <PackageVersion Include="ModelContextProtocol" Version="1.2.0" />
     <!-- Browser Automation -->
-    <PackageVersion Include="Microsoft.Playwright" Version="1.40.0" />
-    
+    <PackageVersion Include="Microsoft.Playwright" Version="1.59.0" />
     <!-- Image Processing -->
     <PackageVersion Include="SixLabors.ImageSharp" Version="3.1.6" />
-    
     <!-- Logging -->
-    <PackageVersion Include="Serilog" Version="3.1.1" />
-    <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageVersion Include="Serilog" Version="4.3.1" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Extensions.Hosting" Version="8.0.0" />
-    <PackageVersion Include="Serilog.Extensions.Logging" Version="8.0.0" />
-    
+    <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />
     <!-- Resilience -->
-    <PackageVersion Include="Polly" Version="8.2.0" />
-    
+    <PackageVersion Include="Polly" Version="8.6.6" />
     <!-- WPF UI -->
-    <PackageVersion Include="WPF-UI" Version="3.0.4" />
-    <PackageVersion Include="WPF-UI.Tray" Version="3.0.4" />
-    
+    <PackageVersion Include="WPF-UI" Version="4.2.0" />
+    <PackageVersion Include="WPF-UI.Tray" Version="4.2.0" />
     <!-- Analyzers -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
     <PackageVersion Include="WpfAnalyzers" Version="4.1.1" />
-    
     <!-- SourceLink -->
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.201" />
     <!-- Testing -->
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />

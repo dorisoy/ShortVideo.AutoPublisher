@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackagesCommonFrameworks>net8.0-windows;net7.0-windows;net6.0-windows;net481;net472;net462</PackagesCommonFrameworks>
+    <PackagesCommonFrameworks>net10.0-windows;net8.0-windows;net7.0-windows;net6.0-windows;net481;net472;net462</PackagesCommonFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,7 +15,7 @@
     <PackageVersion>$(Version)</PackageVersion>
     <Authors>dorisoy</Authors>
     <Company>dorisoy</Company>
-    <Copyright>Copyright (C) 2024 dorisoy</Copyright>
+    <Copyright>Copyright (C) 2026 dorisoy</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicense>https://raw.githubusercontent.com/dorisoy/ShortVideo.AutoPublisher/main/LICENSE</PackageLicense>
