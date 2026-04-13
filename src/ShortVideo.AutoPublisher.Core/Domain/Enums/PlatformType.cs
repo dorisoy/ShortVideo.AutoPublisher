@@ -75,3 +75,53 @@ public static class PlatformTypeExtensions
         _ => string.Empty
     };
 }
+
+/// <summary>
+/// 发布任务状态
+/// </summary>
+public enum PublishTaskStatus
+{
+    /// <summary>
+    /// 待发布
+    /// </summary>
+    Pending = 0,
+
+    /// <summary>
+    /// 发布中
+    /// </summary>
+    Running = 1,
+
+    /// <summary>
+    /// 已完成
+    /// </summary>
+    Completed = 2,
+
+    /// <summary>
+    /// 失败
+    /// </summary>
+    Failed = 3,
+
+    /// <summary>
+    /// 已取消
+    /// </summary>
+    Cancelled = 4
+}
+
+/// <summary>
+/// 任务状态扩展方法
+/// </summary>
+public static class PublishTaskStatusExtensions
+{
+    /// <summary>
+    /// 获取状态显示名称
+    /// </summary>
+    public static string GetDisplayName(this PublishTaskStatus status) => status switch
+    {
+        PublishTaskStatus.Pending => "待发布",
+        PublishTaskStatus.Running => "发布中",
+        PublishTaskStatus.Completed => "已完成",
+        PublishTaskStatus.Failed => "失败",
+        PublishTaskStatus.Cancelled => "已取消",
+        _ => status.ToString()
+    };
+}
