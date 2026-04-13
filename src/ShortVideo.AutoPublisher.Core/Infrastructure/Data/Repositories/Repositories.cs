@@ -40,6 +40,18 @@ public class VideoContentRepository
         using var conn = _context.CreateConnection();
         await conn.ExecuteAsync("DELETE FROM VideoContents WHERE Id = @Id", new { Id = id });
     }
+
+    /// <summary>
+    /// 更新视频信息
+    /// </summary>
+    public async Task UpdateAsync(VideoContent video)
+    {
+        using var conn = _context.CreateConnection();
+        video.UpdatedAt = DateTime.Now;
+        await conn.ExecuteAsync(
+            "UPDATE VideoContents SET Title = @Title, Description = @Description, Tags = @Tags, UpdatedAt = @UpdatedAt WHERE Id = @Id",
+            video);
+    }
 }
 
 /// <summary>

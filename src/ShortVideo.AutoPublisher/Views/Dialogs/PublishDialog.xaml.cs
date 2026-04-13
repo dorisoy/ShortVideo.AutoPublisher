@@ -98,7 +98,7 @@ public partial class PublishDialog : FluentWindow
     {
         if (SelectedPlatforms.Count == 0)
         {
-            MessageBox.Show("请至少选择一个发布平台", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+            System.Windows.MessageBox.Show("请至少选择一个发布平台", "提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
             return;
         }
 

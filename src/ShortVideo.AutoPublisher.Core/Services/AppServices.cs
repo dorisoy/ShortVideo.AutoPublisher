@@ -121,5 +121,26 @@ public class CookieSessionService
             _logger.LogInformation("账号状态已刷新: {Id}", id);
         }
     }
+
+    /// <summary>
+    /// 设置默认账号
+    /// </summary>
+    public async Task SetDefaultAsync(long id)
+    {
+        var sessions = await _repository.GetAllAsync();
+        var session = sessions.FirstOrDefault(s => s.Id == id);
+        if (session == null) return;
+
+        // 清除同平台其他默认账号
+        foreach (var s in sessions.Where(s => s.Platform == session.Platform && s.IsDefault))
+        {
+            s.IsDefault = false;
+            await _repository.UpdateAsync(s);
+        }
+
+        session.IsDefault = true;
+        await _repository.UpdateAsync(session);
+        _logger.LogInformation("已设置默认账号: {Id}", id);
+    }
 }
 
