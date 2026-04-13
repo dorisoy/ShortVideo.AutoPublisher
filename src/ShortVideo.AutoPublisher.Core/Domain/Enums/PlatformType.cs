@@ -124,4 +124,10 @@ public static class PublishTaskStatusExtensions
         PublishTaskStatus.Cancelled => "已取消",
         _ => status.ToString()
     };
+
+    /// <summary>
+    /// 判断状态是否为终态
+    /// </summary>
+    public static bool IsTerminal(this PublishTaskStatus status) =>
+        status is PublishTaskStatus.Completed or PublishTaskStatus.Failed or PublishTaskStatus.Cancelled;
 }

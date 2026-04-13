@@ -48,6 +48,28 @@ public class VideoContentService
         await _repository.DeleteAsync(id);
         _logger.LogInformation("视频已删除: {Id}", id);
     }
+
+    /// <summary>
+    /// 搜索视频
+    /// </summary>
+    public async Task<IEnumerable<VideoContent>> SearchAsync(string keyword)
+    {
+        var all = await _repository.GetAllAsync();
+        var lower = keyword.ToLower();
+        return all.Where(v =>
+            (v.Title?.ToLower().Contains(lower) == true) ||
+            (v.Description?.ToLower().Contains(lower) == true) ||
+            (v.Tags?.ToLower().Contains(lower) == true));
+    }
+
+    /// <summary>
+    /// 更新视频信息
+    /// </summary>
+    public async Task UpdateAsync(VideoContent video)
+    {
+        await _repository.UpdateAsync(video);
+        _logger.LogInformation("视频已更新: {Id}", video.Id);
+    }
 }
 
 /// <summary>

@@ -23,6 +23,12 @@ public class DashboardStatistics
 
     /// <summary>已连接账号数</summary>
     public int ConnectedAccounts { get; set; }
+
+    /// <summary>已过期账号数</summary>
+    public int ExpiredAccounts { get; set; }
+
+    /// <summary>各平台连接状态</summary>
+    public Dictionary<PlatformType, bool> PlatformStatus { get; set; } = new();
 }
 
 /// <summary>
@@ -72,7 +78,11 @@ public class StatisticsService
                 TodayPublished = todayPublished,
                 PendingTasks = pendingTasks.Count(),
                 FailedTasks = failedTasks.Count(),
-                ConnectedAccounts = sessions.Count(s => s.IsValid)
+                ConnectedAccounts = sessions.Count(s => s.IsValid),
+                ExpiredAccounts = sessions.Count(s => s.IsExpired),
+                PlatformStatus = sessions
+                    .GroupBy(s => s.Platform)
+                    .ToDictionary(g => g.Key, g => g.Any(s => s.IsValid))
             };
         }
         catch (Exception ex)

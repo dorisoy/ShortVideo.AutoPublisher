@@ -47,6 +47,18 @@ public class PublishTask
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime? StartedAt { get; set; }
     public DateTime? CompletedAt { get; set; }
+
+    /// <summary>平台显示名称</summary>
+    public string PlatformDisplayName => Platform.GetDisplayName();
+
+    /// <summary>状态显示名称</summary>
+    public string StatusDisplayName => Status.GetDisplayName();
+
+    /// <summary>是否可重试</summary>
+    public bool CanRetry => Status == PublishTaskStatus.Failed;
+
+    /// <summary>是否可取消</summary>
+    public bool CanCancel => Status == PublishTaskStatus.Pending || Status == PublishTaskStatus.Running;
 }
 
 /// <summary>
